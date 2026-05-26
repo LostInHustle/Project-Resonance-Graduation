@@ -1,0 +1,2903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Resonance: Senior Year — Anniversary Edition</title>
+<style>
+/* ============================================================
+   DESIGN SYSTEM — ANNIVERSARY EDITION
+   ============================================================ */
+:root{
+  --bg-0:#0b0810; --bg-1:#14101c; --bg-2:#1c1628; --bg-3:#261d35; --bg-4:#322647;
+  --line:rgba(212,175,55,0.22); --line-soft:rgba(255,255,255,0.07); --line-strong:rgba(212,175,55,0.55);
+  --gold:#d4af37; --gold-bright:#ffd76a; --gold-dim:#8c7426;
+  --text:#ede4d3; --text-dim:#8b8094; --text-faint:#5a5264;
+  --joy:#4ade80; --stress:#fb923c; --career:#60a5fa; --bond:#f472b6; --crit:#fbbf24;
+  --crystal-full:#38bdf8; --crystal-empty:#2a2635;
+  --grad-rogue:linear-gradient(160deg,#1e40af 0%,#3b82f6 100%);
+  --grad-asy:linear-gradient(160deg,#991b1b 0%,#dc2626 100%);
+  --grad-chill:linear-gradient(160deg,#047857 0%,#10b981 100%);
+  --grad-life:linear-gradient(160deg,#7c2d92 0%,#c026d3 100%);
+  --grad-special:linear-gradient(160deg,#a16207 0%,#fbbf24 100%);
+  --rar-common:#9ca3af; --rar-rare:#60a5fa; --rar-epic:#c084fc;
+  --shadow-lg:0 20px 50px rgba(0,0,0,0.65),0 8px 20px rgba(0,0,0,0.45);
+  --shadow-glow:0 0 30px rgba(212,175,55,0.45);
+  --ease-out:cubic-bezier(0.22,1,0.36,1);
+  --ease-snap:cubic-bezier(0.175,0.885,0.32,1.275);
+  --ease-bounce:cubic-bezier(0.68,-0.55,0.27,1.55);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{
+  font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+  background:radial-gradient(ellipse at top,#1c1628 0%,#0b0810 70%);
+  color:var(--text);user-select:none;-webkit-font-smoothing:antialiased;
+}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+button:disabled{cursor:not-allowed;opacity:0.4}
+input{font-family:inherit}
+.hidden{display:none!important}
+
+/* ============ TOP BAR ============ */
+.top-bar{
+  position:fixed;top:0;left:0;right:0;height:54px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;z-index:50;
+  background:linear-gradient(180deg,rgba(11,8,16,0.95) 0%,rgba(11,8,16,0.7) 100%);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+}
+.logo{font-family:Georgia,serif;font-size:1.1rem;color:var(--gold);letter-spacing:2px;display:flex;align-items:center;gap:10px}
+.logo-mark{width:26px;height:26px;background:radial-gradient(circle,var(--gold-bright),var(--gold-dim));border-radius:50%;box-shadow:0 0 15px rgba(212,175,55,0.5);position:relative;animation:pulse 3s ease-in-out infinite}
+.logo-mark::after{content:'';position:absolute;inset:5px;border:1px solid rgba(0,0,0,0.4);border-radius:50%}
+@keyframes pulse{0%,100%{box-shadow:0 0 15px rgba(212,175,55,0.5)}50%{box-shadow:0 0 25px rgba(212,175,55,0.9)}}
+.top-center{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center}
+.day-pill{background:var(--bg-2);border:1px solid var(--line);padding:5px 12px;border-radius:20px;font-size:0.82rem;font-weight:600;display:flex;align-items:center;gap:6px}
+.day-num{color:var(--gold-bright);font-size:1rem}
+.phase-pill{background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.3);padding:3px 9px;border-radius:12px;font-size:0.68rem;text-transform:uppercase;letter-spacing:1px;color:var(--career)}
+.day-type{font-size:0.9rem}
+.streak-pill{background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.4);padding:3px 9px;border-radius:12px;font-size:0.72rem;color:var(--crit);font-weight:700}
+.top-right{display:flex;gap:6px}
+.icon-btn{width:36px;height:36px;border-radius:8px;background:var(--bg-2);border:1px solid var(--line-soft);display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all 0.2s var(--ease-out);position:relative}
+.icon-btn:hover{background:var(--bg-3);border-color:var(--gold);transform:translateY(-1px)}
+.icon-btn .badge{position:absolute;top:-4px;right:-4px;background:#dc2626;color:#fff;font-size:0.6rem;font-weight:700;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+
+/* ============ TIMELINE ============ */
+.timeline{position:fixed;top:54px;left:0;right:0;height:22px;background:rgba(0,0,0,0.5);border-bottom:1px solid var(--line-soft);z-index:45;display:flex;align-items:center;padding:0 12px;gap:2px}
+.timeline-day{flex:1;height:6px;background:var(--bg-3);border-radius:3px;position:relative;transition:all 0.3s}
+.timeline-day.done{background:var(--gold-dim)}
+.timeline-day.current{background:var(--gold-bright);box-shadow:0 0 8px var(--gold-bright)}
+.timeline-day.boss::after{content:'👹';position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:0.6rem}
+.timeline-day.shop::after{content:'🛒';position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:0.6rem}
+.timeline-day.relic::after{content:'🏺';position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:0.6rem}
+
+/* ============ GAME BOARD ============ */
+.board{position:fixed;inset:0;padding-top:76px;display:grid;grid-template-rows:auto auto 1fr auto;gap:6px}
+.player-lane{display:flex;align-items:center;padding:8px 18px;gap:14px;background:linear-gradient(90deg,rgba(28,22,40,0.65),rgba(28,22,40,0.2));border-bottom:1px solid var(--line-soft);position:relative}
+.lane-aaron{border-top:1px solid var(--line-soft);border-bottom:none;background:linear-gradient(270deg,rgba(28,22,40,0.65),rgba(28,22,40,0.2))}
+.portrait-wrap{position:relative}
+.portrait{width:54px;height:54px;border-radius:50%;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:bold;color:#fff;box-shadow:0 4px 12px rgba(0,0,0,0.5),inset 0 0 20px rgba(0,0,0,0.3);transition:all 0.3s}
+.portrait.jason{background:var(--grad-asy)}
+.portrait.aaron{background:var(--grad-rogue)}
+.portrait.stressed{animation:stressPulse 1s ease-in-out infinite;border-color:#dc2626}
+@keyframes stressPulse{0%,100%{box-shadow:0 4px 12px rgba(0,0,0,0.5),0 0 0 0 rgba(220,38,38,0.7)}50%{box-shadow:0 4px 12px rgba(0,0,0,0.5),0 0 0 8px rgba(220,38,38,0)}}
+.player-info{flex:1;min-width:0}
+.player-name{font-size:0.92rem;font-weight:700;color:var(--gold);display:flex;align-items:center;gap:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.player-pref{font-size:0.68rem;color:var(--text-dim);font-weight:400}
+.stat-row{display:flex;gap:6px;margin-top:5px;flex-wrap:wrap}
+.stat-pill{display:flex;align-items:center;gap:4px;background:rgba(0,0,0,0.45);border:1px solid var(--line-soft);padding:2px 7px;border-radius:10px;font-size:0.72rem;font-weight:600;position:relative;overflow:hidden;min-width:60px;transition:all 0.3s}
+.stat-fill{position:absolute;left:0;top:0;bottom:0;opacity:0.25;transition:width 0.6s var(--ease-out)}
+.stat-pill.joy .stat-fill{background:var(--joy)}
+.stat-pill.stress .stat-fill{background:var(--stress)}
+.stat-pill.career .stat-fill{background:var(--career)}
+.stat-pill.danger{border-color:#dc2626;animation:dangerPulse 1.5s ease-in-out infinite}
+@keyframes dangerPulse{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,0.4)}50%{box-shadow:0 0 0 4px rgba(220,38,38,0)}}
+.stat-pill > span{position:relative;z-index:1}
+.stat-val{font-variant-numeric:tabular-nums}
+.lane-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.buffs{display:flex;gap:3px;flex-wrap:wrap;max-width:150px;justify-content:flex-end}
+.buff{width:26px;height:26px;border-radius:5px;background:rgba(0,0,0,0.6);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:0.8rem;position:relative;cursor:help}
+.buff[data-tip]:hover::after{content:attr(data-tip);position:absolute;bottom:120%;right:0;background:#000;color:#fff;padding:4px 8px;border-radius:4px;font-size:0.7rem;white-space:nowrap;z-index:100;border:1px solid var(--gold);pointer-events:none}
+.crystals{display:flex;gap:2px}
+.crystal{width:14px;height:20px;background:var(--crystal-empty);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);transition:all 0.3s var(--ease-snap)}
+.crystal.full{background:var(--crystal-full);filter:drop-shadow(0 0 4px var(--crystal-full))}
+
+/* ============ BOND METER ============ */
+.bond-bar{display:flex;align-items:center;gap:8px;padding:4px 18px;background:linear-gradient(90deg,rgba(212,175,55,0.05),rgba(212,175,55,0.12),rgba(212,175,55,0.05));border-bottom:1px solid rgba(212,175,55,0.18);position:relative}
+.bond-icon{font-size:1.1rem;filter:drop-shadow(0 0 6px rgba(212,175,55,0.55));color:var(--gold)}
+.bond-track{flex:1;height:10px;background:rgba(0,0,0,0.4);border-radius:5px;overflow:hidden;position:relative;border:1px solid rgba(212,175,55,0.22)}
+.bond-fill{height:100%;background:linear-gradient(90deg,#78350f,#d4af37,#ffd76a);transition:width 0.6s var(--ease-out);position:relative;box-shadow:0 0 10px rgba(212,175,55,0.5)}
+.bond-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);animation:shimmer 2s linear infinite}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.bond-label{font-size:0.78rem;font-weight:700;color:var(--gold);min-width:90px;text-align:right}
+.bond-phase{font-size:0.65rem;color:var(--text-dim);font-style:italic;min-width:100px}
+
+/* ============ CENTER MAT ============ */
+.play-mat{position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.relics-tray{position:absolute;left:12px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:5px;max-height:90%;overflow-y:auto;padding:4px}
+.relic{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,rgba(212,175,55,0.18),rgba(212,175,55,0.05));border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:help;position:relative;transition:transform 0.2s}
+.relic:hover{transform:scale(1.15)}
+.relic[data-tip]:hover::after{content:attr(data-tip);position:absolute;left:110%;top:50%;transform:translateY(-50%);background:#000;color:#fff;padding:6px 10px;border-radius:4px;font-size:0.7rem;z-index:100;border:1px solid var(--gold);min-width:180px;max-width:240px;white-space:normal;pointer-events:none}
+.banner{background:linear-gradient(135deg,rgba(20,16,28,0.95),rgba(11,8,16,0.95));border:1px solid var(--line);border-radius:12px;padding:18px 28px;text-align:center;max-width:520px;backdrop-filter:blur(8px);box-shadow:var(--shadow-lg)}
+.banner.boss{border-color:#dc2626;box-shadow:var(--shadow-lg),0 0 30px rgba(220,38,38,0.35)}
+.banner h3{font-family:Georgia,serif;color:var(--gold-bright);font-size:1.1rem;margin-bottom:6px;letter-spacing:0.5px}
+.banner.boss h3{color:#fca5a5}
+.banner p{color:var(--text-dim);font-size:0.85rem;line-height:1.5}
+.end-turn-btn{position:absolute;right:18px;top:50%;transform:translateY(-50%);width:80px;height:80px;border-radius:50%;background:radial-gradient(circle at 30% 30%,var(--gold-bright),var(--gold-dim));border:3px solid rgba(255,255,255,0.9);color:#000;font-weight:900;font-size:0.78rem;letter-spacing:0.5px;box-shadow:var(--shadow-lg),inset 0 -6px 12px rgba(0,0,0,0.3),0 0 30px rgba(212,175,55,0.3);transition:all 0.2s var(--ease-snap);text-align:center;line-height:1.2}
+.end-turn-btn:hover:not(:disabled){transform:translateY(-50%) scale(1.08);box-shadow:var(--shadow-lg),inset 0 -6px 12px rgba(0,0,0,0.3),0 0 45px rgba(212,175,55,0.5)}
+.end-turn-btn:active:not(:disabled){transform:translateY(-50%) scale(0.96)}
+.end-turn-btn:disabled{filter:grayscale(0.8) brightness(0.6);box-shadow:none}
+.deck-info{position:absolute;left:16px;bottom:10px;display:flex;gap:10px;font-size:0.7rem;color:var(--text-dim);background:rgba(0,0,0,0.5);padding:5px 9px;border-radius:8px;border:1px solid var(--line-soft)}
+.deck-info b{color:var(--gold);font-weight:700}
+.deck-info .clickable{cursor:pointer;transition:color 0.2s}
+.deck-info .clickable:hover{color:var(--gold-bright)}
+.gold-display{position:absolute;right:16px;bottom:10px;display:flex;align-items:center;gap:5px;background:rgba(0,0,0,0.5);padding:5px 10px;border-radius:8px;border:1px solid var(--gold);font-weight:700;color:var(--gold-bright);font-size:0.85rem}
+
+/* ============ THE HAND ============ */
+.hand-zone{height:225px;position:relative;display:flex;justify-content:center;align-items:flex-end;perspective:1200px;padding-bottom:10px}
+.hand{position:relative;height:100%;display:flex;justify-content:center;align-items:flex-end}
+.card{position:absolute;width:135px;height:195px;bottom:0;background:var(--bg-2);border:2px solid var(--line);border-radius:10px;overflow:hidden;cursor:pointer;transform-origin:bottom center;transition:transform 0.35s var(--ease-snap),box-shadow 0.3s,filter 0.3s,border-color 0.3s;box-shadow:0 10px 20px rgba(0,0,0,0.5);display:flex;flex-direction:column;will-change:transform}
+.card.rar-rare{border-color:var(--rar-rare)}
+.card.rar-epic{border-color:var(--rar-epic);box-shadow:0 10px 20px rgba(0,0,0,0.5),0 0 12px rgba(192,132,252,0.35)}
+.card.level-2{border-color:#60a5fa;box-shadow:0 10px 20px rgba(0,0,0,0.5),0 0 10px rgba(96,165,250,0.35)}
+.card.level-3{border-color:var(--gold-bright);box-shadow:0 10px 20px rgba(0,0,0,0.5),0 0 15px rgba(255,215,106,0.5)}
+.card.synergy-active{animation:synergyPulse 1.5s ease-in-out infinite}
+@keyframes synergyPulse{0%,100%{box-shadow:0 10px 20px rgba(0,0,0,0.5),0 0 0 0 rgba(167,139,250,0.6)}50%{box-shadow:0 10px 20px rgba(0,0,0,0.5),0 0 0 6px rgba(167,139,250,0)}}
+.card:hover:not(.locked):not(.unplayable){z-index:50!important;border-color:var(--gold-bright);box-shadow:0 25px 45px rgba(0,0,0,0.7),0 0 25px rgba(212,175,55,0.5)}
+.card.unplayable{filter:grayscale(0.7) brightness(0.4);cursor:not-allowed}
+.card.locked{pointer-events:none}
+.card.playing{animation:cardPlay 0.6s var(--ease-out) forwards;pointer-events:none}
+@keyframes cardPlay{0%{transform:translateY(-55px) scale(1.25)}50%{transform:translateY(-200px) scale(1.1);opacity:1}100%{transform:translateY(-300px) scale(0.8);opacity:0}}
+.card.drawing{animation:cardDraw 0.5s var(--ease-snap) forwards}
+@keyframes cardDraw{from{transform:translateY(200px) scale(0.5) rotate(-30deg);opacity:0}to{opacity:1}}
+.card-cost{position:absolute;top:-4px;left:-4px;width:32px;height:32px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#7dd3fc,#0284c7);border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1rem;color:#000;z-index:5;box-shadow:0 2px 6px rgba(0,0,0,0.5)}
+.card-art{height:68px;display:flex;align-items:center;justify-content:center;font-size:2.2rem;border-bottom:2px solid rgba(0,0,0,0.3);position:relative}
+.card.type-rogue .card-art{background:var(--grad-rogue)}
+.card.type-asy .card-art{background:var(--grad-asy)}
+.card.type-chill .card-art{background:var(--grad-chill)}
+.card.type-life .card-art{background:var(--grad-life)}
+.card.type-special .card-art{background:var(--grad-special)}
+.card-rarity{position:absolute;top:4px;right:4px;width:12px;height:12px;border-radius:50%;border:1px solid rgba(0,0,0,0.3)}
+.card-rarity.rar-common{background:var(--rar-common)}
+.card-rarity.rar-rare{background:var(--rar-rare);box-shadow:0 0 6px var(--rar-rare)}
+.card-rarity.rar-epic{background:var(--rar-epic);box-shadow:0 0 8px var(--rar-epic)}
+.card-targets{position:absolute;top:4px;left:4px;display:flex;gap:2px;font-size:0.6rem;font-weight:700}
+.card-target-badge{background:rgba(0,0,0,0.7);color:#fff;padding:1px 4px;border-radius:3px;border:1px solid rgba(255,255,255,0.2)}
+.card-target-badge.a{background:rgba(30,64,175,0.8);border-color:#60a5fa}
+.card-target-badge.j{background:rgba(153,27,27,0.8);border-color:#f87171}
+.card-target-badge.both{background:rgba(124,41,146,0.8);border-color:#c026d3}
+.card-body{padding:7px;flex:1;display:flex;flex-direction:column;background:linear-gradient(180deg,var(--bg-2),var(--bg-1))}
+.card-name{font-size:0.74rem;font-weight:700;color:var(--gold-bright);text-align:center;line-height:1.2;margin-bottom:3px}
+.card-desc{font-size:0.62rem;color:var(--text-dim);text-align:center;line-height:1.3;flex:1}
+.card-meta{display:flex;justify-content:space-between;align-items:center;font-size:0.58rem;margin-top:3px}
+.card-req{color:#f87171;font-style:italic}
+.card-syn{color:#a78bfa;font-weight:700}
+.mastery-stars{color:var(--gold-bright);letter-spacing:-1px}
+.card-tooltip{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:#000;border:1px solid var(--gold);padding:9px 11px;border-radius:6px;width:215px;z-index:100;font-size:0.7rem;line-height:1.4;opacity:0;pointer-events:none;transition:opacity 0.2s;margin-bottom:6px}
+.card:hover .card-tooltip{opacity:1}
+.card-tooltip b{color:var(--gold-bright)}
+.card-tooltip .fx-line{color:#4ade80}
+.card-tooltip .req-line{color:#f87171}
+
+/* ============ MODALS ============ */
+.modal-backdrop{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.88);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn 0.3s var(--ease-out);overflow-y:auto}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{background:linear-gradient(135deg,var(--bg-1),var(--bg-2));border:1px solid var(--gold);border-radius:16px;padding:28px;max-width:680px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg),var(--shadow-glow);animation:modalIn 0.4s var(--ease-snap)}
+@keyframes modalIn{from{transform:scale(0.9) translateY(20px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+.modal h1{font-family:Georgia,serif;color:var(--gold-bright);font-size:1.7rem;margin-bottom:6px;letter-spacing:1px}
+.modal h2{font-family:Georgia,serif;color:var(--gold);font-size:1.1rem;margin:18px 0 10px;border-bottom:1px solid var(--line);padding-bottom:5px}
+.modal p{color:var(--text-dim);line-height:1.6;margin-bottom:10px;font-size:0.88rem}
+.modal .subtitle{color:var(--text-dim);margin-bottom:20px;font-size:0.82rem}
+
+/* ============ TUTORIAL ============ */
+.tutorial-step{background:linear-gradient(135deg,rgba(212,175,55,0.08),rgba(212,175,55,0.02));border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0;position:relative}
+.tutorial-step-num{position:absolute;top:-10px;left:14px;background:var(--gold);color:#000;font-weight:900;font-size:0.72rem;padding:2px 8px;border-radius:10px;letter-spacing:1px}
+.tutorial-step h3{color:var(--gold-bright);font-family:Georgia,serif;font-size:1rem;margin:4px 0 8px}
+.tutorial-step p{font-size:0.82rem;margin-bottom:6px}
+.tutorial-tip{background:rgba(96,165,250,0.1);border-left:3px solid var(--career);padding:8px 12px;border-radius:4px;font-size:0.78rem;color:var(--text);margin-top:8px}
+.tutorial-tip b{color:var(--gold-bright)}
+.tutorial-progress{display:flex;gap:4px;margin:14px 0}
+.tutorial-dot{flex:1;height:4px;background:var(--bg-3);border-radius:2px;transition:background 0.3s}
+.tutorial-dot.done{background:var(--gold-dim)}
+.tutorial-dot.current{background:var(--gold-bright);box-shadow:0 0 6px var(--gold-bright)}
+.tutorial-visual{background:var(--bg-0);border:1px solid var(--line-soft);border-radius:8px;padding:12px;margin:10px 0;font-family:monospace;font-size:0.75rem;color:var(--text-dim)}
+.tutorial-visual .highlight{color:var(--gold-bright);font-weight:700}
+.tutorial-visual .pos{color:var(--joy)}
+.tutorial-visual .neg{color:var(--stress)}
+
+/* ============ START SCREEN ============ */
+.start-screen{text-align:center;max-width:560px;margin:0 auto}
+.start-logo{font-family:Georgia,serif;font-size:2.8rem;color:var(--gold-bright);text-shadow:0 0 40px rgba(212,175,55,0.5);margin-bottom:6px;letter-spacing:3px}
+.start-sub{color:var(--text-dim);font-style:italic;margin-bottom:24px;font-size:0.9rem}
+.char-custom{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}
+.char-field{background:var(--bg-2);border:1px solid var(--line-soft);border-radius:10px;padding:14px;text-align:center;transition:border-color 0.2s}
+.char-field:focus-within{border-color:var(--gold)}
+.char-field-label{font-size:0.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.char-field-preview{width:54px;height:54px;border-radius:50%;margin:0 auto 10px;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:bold;color:#fff}
+.char-field-preview.rogue{background:var(--grad-rogue)}
+.char-field-preview.asy{background:var(--grad-asy)}
+.char-input{width:100%;background:var(--bg-0);border:1px solid var(--line);color:var(--text);padding:7px 10px;border-radius:6px;text-align:center;font-size:0.9rem;font-weight:600}
+.char-input:focus{outline:none;border-color:var(--gold)}
+.char-hint{font-size:0.68rem;color:var(--text-faint);margin-top:5px;font-style:italic}
+.difficulty-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0}
+.diff-btn{padding:12px 6px;border-radius:10px;background:var(--bg-2);border:2px solid var(--line-soft);transition:all 0.2s var(--ease-out);display:flex;flex-direction:column;gap:4px;align-items:center}
+.diff-btn:hover{border-color:var(--gold);transform:translateY(-2px)}
+.diff-btn.selected{border-color:var(--gold-bright);background:rgba(212,175,55,0.1);box-shadow:0 0 20px rgba(212,175,55,0.2)}
+.diff-name{font-weight:700;color:var(--gold);font-size:0.9rem}
+.diff-desc{font-size:0.68rem;color:var(--text-dim);line-height:1.3}
+.seed-row{display:flex;gap:8px;margin:16px 0;justify-content:center;align-items:center}
+.seed-row label{font-size:0.78rem;color:var(--text-dim)}
+.seed-input{background:var(--bg-0);border:1px solid var(--line);color:var(--text);padding:6px 10px;border-radius:6px;font-family:monospace;width:130px;text-align:center;font-size:0.82rem}
+.seed-input:focus{outline:none;border-color:var(--gold)}
+.btn-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.primary-btn{background:linear-gradient(135deg,var(--gold-bright),var(--gold));color:#000;font-weight:900;font-size:0.95rem;padding:12px 30px;border-radius:10px;letter-spacing:1px;box-shadow:0 8px 20px rgba(212,175,55,0.3);transition:all 0.2s var(--ease-snap)}
+.primary-btn:hover:not(:disabled){transform:translateY(-2px) scale(1.03);box-shadow:0 12px 30px rgba(212,175,55,0.5)}
+.primary-btn:active:not(:disabled){transform:translateY(0) scale(0.98)}
+.secondary-btn{background:var(--bg-3);color:var(--text);border:1px solid var(--line);padding:10px 18px;border-radius:8px;font-weight:600;font-size:0.82rem;transition:all 0.2s}
+.secondary-btn:hover:not(:disabled){background:var(--bg-2);border-color:var(--gold)}
+.danger-btn{background:rgba(220,38,38,0.15);color:#fca5a5;border:1px solid rgba(220,38,38,0.4);padding:10px 18px;border-radius:8px;font-weight:600;font-size:0.82rem;transition:all 0.2s}
+.danger-btn:hover:not(:disabled){background:rgba(220,38,38,0.25);border-color:#dc2626}
+.ghost-btn{background:transparent;color:var(--text-dim);border:1px solid var(--line-soft);padding:8px 14px;border-radius:8px;font-size:0.78rem;transition:all 0.2s}
+.ghost-btn:hover{color:var(--gold);border-color:var(--gold)}
+.meta-stats{display:flex;gap:16px;justify-content:center;color:var(--text-faint);font-size:0.75rem;margin-top:12px;flex-wrap:wrap}
+
+/* ============ EVENT / CHOICES ============ */
+.choice-grid{display:flex;flex-direction:column;gap:9px;margin:14px 0}
+.choice-card{background:var(--bg-2);border:1px solid var(--line-soft);padding:12px 14px;border-radius:10px;text-align:left;transition:all 0.2s var(--ease-out);display:flex;flex-direction:column;gap:5px}
+.choice-card:hover{border-color:var(--gold);background:var(--bg-3);transform:translateX(4px)}
+.choice-title{font-weight:700;color:var(--gold-bright);font-size:0.9rem}
+.choice-fx{font-size:0.72rem;color:var(--text-dim);line-height:1.4}
+.choice-fx .pos{color:#4ade80}
+.choice-fx .neg{color:#f87171}
+
+/* ============ SHOP ============ */
+.shop-section{margin-bottom:20px}
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:10px}
+.shop-item{background:var(--bg-2);border:1px solid var(--line-soft);padding:12px;border-radius:10px;display:flex;flex-direction:column;gap:6px;align-items:center;transition:all 0.2s;cursor:pointer;text-align:center}
+.shop-item:hover:not(.disabled){border-color:var(--gold);transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.4)}
+.shop-item.disabled{opacity:0.4;cursor:not-allowed}
+.shop-item.owned{border-color:var(--gold-dim);background:rgba(212,175,55,0.08)}
+.shop-art{font-size:1.8rem}
+.shop-name{font-weight:700;color:var(--gold);font-size:0.82rem}
+.shop-desc{font-size:0.68rem;color:var(--text-dim);line-height:1.3;min-height:28px}
+.shop-price{display:flex;align-items:center;gap:4px;font-weight:700;color:var(--gold-bright);background:rgba(0,0,0,0.4);padding:3px 8px;border-radius:10px;font-size:0.78rem}
+
+/* ============ RELIC DRAFT ============ */
+.relic-choices{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.relic-choice{background:var(--bg-2);border:2px solid var(--line);padding:16px 12px;border-radius:12px;display:flex;flex-direction:column;gap:8px;align-items:center;cursor:pointer;transition:all 0.2s var(--ease-snap);text-align:center}
+.relic-choice:hover{border-color:var(--gold-bright);transform:translateY(-4px);box-shadow:0 10px 25px rgba(212,175,55,0.2)}
+.relic-art{font-size:2.3rem}
+.relic-name{font-weight:700;color:var(--gold);font-size:0.88rem}
+.relic-desc{font-size:0.72rem;color:var(--text-dim);line-height:1.4}
+
+/* ============ MULLIGAN ============ */
+.mulligan-hand{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:18px 0}
+.mulligan-card{width:115px;background:var(--bg-2);border:2px solid var(--line-soft);border-radius:10px;padding:10px;cursor:pointer;transition:all 0.2s;display:flex;flex-direction:column;gap:4px;align-items:center;text-align:center}
+.mulligan-card:hover{border-color:var(--gold)}
+.mulligan-card.marked{border-color:#f87171;background:rgba(248,113,113,0.1);transform:translateY(-6px)}
+.mulligan-art{font-size:1.7rem}
+.mulligan-name{font-size:0.72rem;color:var(--gold);font-weight:700;line-height:1.2}
+.mulligan-cost{font-size:0.68rem;color:var(--career)}
+
+/* ============ DAY SUMMARY ============ */
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.summary-item{background:var(--bg-2);border:1px solid var(--line-soft);border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:4px}
+.summary-label{font-size:0.68rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px}
+.summary-val{font-size:1.1rem;font-weight:700;color:var(--gold-bright);font-family:Georgia,serif}
+.summary-delta{font-size:0.78rem;font-weight:700}
+.summary-delta.pos{color:var(--joy)}
+.summary-delta.neg{color:#f87171}
+.summary-events{background:var(--bg-2);border:1px solid var(--line-soft);border-radius:8px;padding:10px;margin:10px 0;font-size:0.8rem;color:var(--text-dim)}
+.summary-events b{color:var(--gold-bright)}
+
+/* ============ DRAWERS ============ */
+.drawer{position:fixed;top:0;right:-420px;width:400px;height:100vh;background:var(--bg-1);border-left:2px solid var(--gold);z-index:150;padding:22px;overflow-y:auto;transition:right 0.4s var(--ease-out);box-shadow:-10px 0 30px rgba(0,0,0,0.6)}
+.drawer.open{right:0}
+.drawer h2{color:var(--gold);font-family:Georgia,serif;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:14px}
+.drawer h3{color:var(--career);margin:14px 0 6px;font-size:0.82rem;text-transform:uppercase;letter-spacing:1px}
+.drawer p,.drawer li{color:var(--text-dim);font-size:0.82rem;line-height:1.6;margin-bottom:8px}
+.drawer ul{padding-left:18px}
+.drawer .close{position:absolute;top:14px;right:14px;font-size:1.4rem;color:var(--text-dim);width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.drawer .close:hover{color:var(--gold);background:var(--bg-2)}
+.setting-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line-soft)}
+.setting-label{color:var(--text);font-size:0.85rem;font-weight:600}
+.setting-desc{color:var(--text-dim);font-size:0.7rem;margin-top:2px}
+.slider{width:120px;-webkit-appearance:none;appearance:none;height:4px;background:var(--bg-3);border-radius:2px;outline:none}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;background:var(--gold);border-radius:50%;cursor:pointer}
+.toggle{width:40px;height:22px;background:var(--bg-3);border-radius:11px;position:relative;cursor:pointer;transition:background 0.2s}
+.toggle.on{background:var(--gold)}
+.toggle::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;background:#fff;border-radius:50%;transition:left 0.2s}
+.toggle.on::after{left:20px}
+
+/* ============ DECK CODEX ============ */
+.codex-filters{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.codex-filter{padding:4px 10px;border-radius:12px;background:var(--bg-2);border:1px solid var(--line-soft);font-size:0.72rem;color:var(--text-dim);transition:all 0.2s}
+.codex-filter:hover{border-color:var(--gold)}
+.codex-filter.active{background:rgba(212,175,55,0.15);border-color:var(--gold);color:var(--gold-bright)}
+.codex-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;max-height:55vh;overflow-y:auto;padding:4px}
+.codex-card{background:var(--bg-2);border:1px solid var(--line-soft);border-radius:8px;padding:8px;display:flex;flex-direction:column;gap:4px;align-items:center;text-align:center;transition:all 0.2s;cursor:pointer}
+.codex-card:hover{border-color:var(--gold);transform:translateY(-2px)}
+.codex-card.level-2{border-color:#60a5fa}
+.codex-card.level-3{border-color:var(--gold-bright)}
+.codex-art{font-size:1.4rem}
+.codex-name{font-size:0.7rem;color:var(--gold);font-weight:700;line-height:1.2}
+.codex-meta{font-size:0.62rem;color:var(--text-dim)}
+.codex-mastery{width:100%;height:3px;background:var(--bg-0);border-radius:2px;overflow:hidden;margin-top:2px}
+.codex-mastery-fill{height:100%;background:var(--gold);transition:width 0.3s}
+
+/* ============ END SCREEN ============ */
+.end-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:20px 0}
+.end-stat{background:rgba(0,0,0,0.4);border:1px solid var(--line-soft);padding:14px;border-radius:10px;text-align:center}
+.end-stat-val{font-size:1.6rem;font-weight:900;color:var(--gold-bright);font-family:Georgia,serif}
+.end-stat-lbl{font-size:0.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-top:3px}
+.run-grade{text-align:center;margin:16px 0}
+.grade-letter{font-size:4.5rem;font-family:Georgia,serif;font-weight:900;background:linear-gradient(135deg,var(--gold-bright),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1;filter:drop-shadow(0 0 20px rgba(212,175,55,0.5));animation:gradeIn 0.8s var(--ease-bounce)}
+@keyframes gradeIn{0%{transform:scale(0) rotate(-180deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+.grade-text{color:var(--text-dim);font-size:0.82rem}
+.achievements-list{display:flex;flex-direction:column;gap:5px;margin-top:10px;max-height:200px;overflow-y:auto}
+.achievement{background:var(--bg-2);border-left:3px solid var(--gold);padding:7px 10px;border-radius:4px;display:flex;gap:10px;align-items:center;font-size:0.8rem}
+.achievement.locked{opacity:0.4;border-left-color:var(--text-faint)}
+.ach-icon{font-size:1.1rem}
+.ach-name{font-weight:700;color:var(--gold)}
+.ach-desc{color:var(--text-dim);font-size:0.72rem}
+
+/* ============ RUN HISTORY ============ */
+.history-list{display:flex;flex-direction:column;gap:8px;margin:12px 0;max-height:300px;overflow-y:auto}
+.history-row{background:var(--bg-2);padding:10px 14px;border-radius:8px;display:grid;grid-template-columns:auto 1fr auto auto;gap:12px;align-items:center;font-size:0.8rem}
+.history-grade{font-family:Georgia,serif;font-weight:900;font-size:1.4rem;color:var(--gold-bright);width:40px;text-align:center}
+.history-names{color:var(--text)}
+.history-names small{color:var(--text-dim);display:block;font-size:0.7rem}
+.history-meta{color:var(--text-faint);font-size:0.7rem}
+.history-score{color:var(--gold);font-weight:700}
+
+/* ============ TOASTS ============ */
+.toast-zone{position:fixed;top:80px;right:20px;z-index:300;display:flex;flex-direction:column;gap:7px;pointer-events:none;max-width:280px}
+.toast{background:linear-gradient(135deg,rgba(20,16,28,0.95),rgba(11,8,16,0.95));border:1px solid var(--gold);border-left:4px solid var(--gold-bright);padding:10px 14px;border-radius:8px;box-shadow:var(--shadow-lg);animation:toastIn 0.4s var(--ease-snap),toastOut 0.4s var(--ease-out) 3s forwards}
+.toast.crit{border-left-color:var(--crit)}
+.toast.crit .toast-title{color:var(--crit)}
+.toast.achieve{border-left-color:#a78bfa;background:linear-gradient(135deg,rgba(124,41,146,0.3),rgba(20,16,28,0.95))}
+.toast-title{font-weight:700;color:var(--gold-bright);font-size:0.82rem;display:flex;align-items:center;gap:5px}
+.toast-body{font-size:0.72rem;color:var(--text-dim);margin-top:2px}
+@keyframes toastIn{from{transform:translateX(120%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes toastOut{to{transform:translateX(120%);opacity:0}}
+.float-text{position:absolute;font-weight:900;font-size:1.05rem;pointer-events:none;z-index:100;text-shadow:0 2px 6px rgba(0,0,0,0.9);animation:floatUp 1.4s var(--ease-out) forwards;white-space:nowrap}
+.float-text.crit{font-size:1.4rem;color:var(--crit)!important;text-shadow:0 0 10px var(--crit),0 2px 6px rgba(0,0,0,0.9)}
+@keyframes floatUp{0%{opacity:0;transform:translateY(0) scale(0.5)}20%{opacity:1;transform:translateY(-12px) scale(1.2)}100%{opacity:0;transform:translateY(-70px) scale(1)}}
+#particle-canvas{position:fixed;inset:0;z-index:80;pointer-events:none}
+.shake{animation:shake 0.3s}
+@keyframes shake{0%,100%{transform:translate(0,0)}25%{transform:translate(-4px,2px)}50%{transform:translate(4px,-2px)}75%{transform:translate(-2px,4px)}}
+.crit-flash{position:fixed;inset:0;background:radial-gradient(circle,rgba(251,191,36,0.3),transparent);z-index:90;pointer-events:none;animation:critFlash 0.5s ease-out forwards}
+@keyframes critFlash{0%{opacity:0}30%{opacity:1}100%{opacity:0}}
+.kbd{display:inline-block;background:var(--bg-0);border:1px solid var(--line);padding:1px 5px;border-radius:3px;font-family:monospace;font-size:0.7rem;color:var(--gold);margin:0 2px}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--gold-dim)}
+
+/* ============ TUTORIAL SPOTLIGHT ============ */
+.spotlight{position:fixed;inset:0;z-index:400;pointer-events:none;background:rgba(0,0,0,0.75);transition:clip-path 0.5s var(--ease-out)}
+.spotlight-callout{position:fixed;z-index:401;background:linear-gradient(135deg,var(--bg-1),var(--bg-2));border:2px solid var(--gold);border-radius:12px;padding:16px;max-width:320px;box-shadow:var(--shadow-lg),var(--shadow-glow);animation:calloutIn 0.4s var(--ease-snap)}
+@keyframes calloutIn{from{transform:scale(0.8);opacity:0}to{transform:scale(1);opacity:1}}
+.spotlight-callout h4{color:var(--gold-bright);font-family:Georgia,serif;margin-bottom:6px;font-size:0.95rem}
+.spotlight-callout p{color:var(--text-dim);font-size:0.82rem;line-height:1.5;margin-bottom:10px}
+.spotlight-actions{display:flex;gap:8px;justify-content:flex-end}
+
+@media (max-width:900px){
+  .top-bar{padding:0 10px}
+  .top-center{gap:6px}
+  .day-pill{font-size:0.72rem;padding:4px 8px}
+  .streak-pill{font-size:0.65rem}
+  .relics-tray{left:6px}
+  .relic{width:30px;height:30px;font-size:0.85rem}
+  .end-turn-btn{width:64px;height:64px;font-size:0.7rem;right:8px}
+  .card{width:110px;height:160px}
+  .card-art{height:55px;font-size:1.7rem}
+  .card-name{font-size:0.68rem}
+  .card-desc{font-size:0.58rem}
+  .hand-zone{height:180px}
+  .relic-choices{grid-template-columns:1fr}
+  .difficulty-grid{grid-template-columns:1fr}
+  .char-custom{grid-template-columns:1fr}
+  .player-lane{padding:6px 10px;gap:8px}
+  .portrait{width:42px;height:42px;font-size:1.15rem}
+  .stat-pill{font-size:0.65rem;padding:2px 5px;min-width:50px}
+  .drawer{width:90%;right:-100%}
+  .bond-phase{display:none}
+  .timeline{display:none}
+}
+</style>
+</head>
+<body>
+<header class="top-bar">
+  <div class="logo"><div class="logo-mark"></div><span>RESONANCE</span></div>
+  <div class="top-center">
+    <div class="day-pill">Day <span class="day-num" id="day-num">1</span> / 28 <span style="color:var(--text-faint)">·</span> Week <span id="week-num">1</span></div>
+    <div class="day-type" id="day-type" title="Day Type">☀️</div>
+    <div class="phase-pill" id="phase-pill">READY</div>
+    <div class="streak-pill" id="streak-pill" title="Momentum Streak">🔥 0</div>
+  </div>
+  <div class="top-right">
+    <button class="icon-btn" id="btn-undo" title="Undo (U)">↶</button>
+    <button class="icon-btn" id="btn-mute" title="Mute (M)">🔊</button>
+    <button class="icon-btn" id="btn-deck" title="Deck Codex (D)">📖</button>
+    <button class="icon-btn" id="btn-stats" title="Run Stats">📊</button>
+    <button class="icon-btn" id="btn-settings" title="Settings">⚙️</button>
+    <button class="icon-btn" id="btn-rules" title="Rulebook (?)">?</button>
+  </div>
+</header>
+
+<div class="timeline" id="timeline"></div>
+
+<aside class="drawer" id="drawer-rules">
+  <button class="close" onclick="UI.closeDrawer('rules')">×</button>
+  <h2>Rulebook</h2>
+  <p>Guide your two friends through 28 days of senior year. Balance Joy, Stress, Career, and Friendship Bond.</p>
+  <h3>🎴 Cards & Mastery</h3>
+  <p>Start with 10 cards. Draw 5 each morning (mulligan up to 2). Play cards during Evening. Cards gain <b>Mastery XP</b> per play — Level 2 at 30 XP (+20% effects), Level 3 at 80 XP (unlock bonuses).</p>
+  <h3>⏳ Time Crystals</h3>
+  <p>You have <b>3💎/day</b> (Casual: 4, Nightmare: 2). Morning events consume some. Spend the rest on cards.</p>
+  <h3>✨ Critical Hits</h3>
+  <p>Every card has a <b>10% chance</b> to CRIT for <b>1.5× effects</b>. Relics can boost this.</p>
+  <h3>🎯 Momentum Streak</h3>
+  <p>End days with both players' Joy &gt; 40 to build streak. At 3+: +1 gold/day. At 5+: +1 card draw/day.</p>
+  <h3>🤝 Friendship Bond</h3>
+  <p>Bond decays by 2 each day. Keep it high — low bond blocks powerful synergy cards. Above 80 = "Unbreakable".</p>
+  <h3>👹 Boss Days</h3>
+  <p>Days 7, 14, 21, 28 are <b>Boss Days</b> with high-stakes events (finals, thesis defense, etc.).</p>
+  <h3>🛒 Shop & Relics</h3>
+  <p>Every 3 days: shop (buy cards, remove weak ones, upgrade cards). Every 7 days: draft a free Relic.</p>
+  <h3>🏆 Endings</h3>
+  <ul>
+    <li><b>Burnout:</b> Joy ≤ 0 → Failed run</li>
+    <li><b>Early Offer:</b> Both Careers ≥ 100 → Speedrun win</li>
+    <li><b>Graduation:</b> Day 28 → Graded ending (F to S+)</li>
+  </ul>
+  <h3>⌨ Shortcuts</h3>
+  <p><span class="kbd">Space</span> Advance · <span class="kbd">1-7</span> Play card · <span class="kbd">U</span> Undo · <span class="kbd">M</span> Mute · <span class="kbd">D</span> Deck · <span class="kbd">?</span> Rules</p>
+</aside>
+
+<aside class="drawer" id="drawer-stats">
+  <button class="close" onclick="UI.closeDrawer('stats')">×</button>
+  <h2>Run Statistics</h2>
+  <div id="run-stats-content"><p>Start a run to see statistics.</p></div>
+</aside>
+
+<aside class="drawer" id="drawer-settings">
+  <button class="close" onclick="UI.closeDrawer('settings')">×</button>
+  <h2>Settings</h2>
+  <div class="setting-row">
+    <div>
+      <div class="setting-label">Sound Volume</div>
+      <div class="setting-desc">Adjust SFX volume</div>
+    </div>
+    <input type="range" min="0" max="100" value="60" class="slider" id="volume-slider">
+  </div>
+  <div class="setting-row">
+    <div>
+      <div class="setting-label">Particles</div>
+      <div class="setting-desc">Visual effects intensity</div>
+    </div>
+    <div class="toggle on" id="toggle-particles"></div>
+  </div>
+  <div class="setting-row">
+    <div>
+      <div class="setting-label">Screen Shake</div>
+      <div class="setting-desc">Camera shake on big hits</div>
+    </div>
+    <div class="toggle on" id="toggle-shake"></div>
+  </div>
+  <div class="setting-row">
+    <div>
+      <div class="setting-label">Auto-End Turn</div>
+      <div class="setting-desc">End turn when no cards playable</div>
+    </div>
+    <div class="toggle" id="toggle-autoend"></div>
+  </div>
+  <h3>Tutorial</h3>
+  <button class="secondary-btn" id="btn-replay-tutorial" style="width:100%;margin-top:8px">▶ Replay Tutorial</button>
+  <h3>Data</h3>
+  <button class="danger-btn" id="btn-reset-all" style="width:100%;margin-top:8px">Reset All Progress</button>
+</aside>
+
+<aside class="drawer" id="drawer-deck">
+  <button class="close" onclick="UI.closeDrawer('deck')">×</button>
+  <h2>Deck Codex</h2>
+  <div id="deck-codex-content"><p>Start a run to view your deck.</p></div>
+</aside>
+
+<main class="board" id="board">
+  <section class="player-lane lane-jason">
+    <div class="portrait-wrap"><div class="portrait jason" id="portrait-j">J</div></div>
+    <div class="player-info">
+      <div class="player-name"><span id="name-j">Jason</span> <span class="player-pref">· Asymmetric Esports</span></div>
+      <div class="stat-row">
+        <div class="stat-pill joy" id="j-joy-pill"><div class="stat-fill" id="j-joy-fill"></div><span>😊 <span class="stat-val" id="j-joy">50</span></span></div>
+        <div class="stat-pill stress" id="j-stress-pill"><div class="stat-fill" id="j-stress-fill"></div><span>🔥 <span class="stat-val" id="j-stress">0</span></span></div>
+        <div class="stat-pill career" id="j-career-pill"><div class="stat-fill" id="j-career-fill"></div><span>💼 <span class="stat-val" id="j-career">30</span></span></div>
+      </div>
+    </div>
+    <div class="lane-right"><div class="buffs" id="j-buffs"></div><div class="crystals" id="j-crystals"></div></div>
+  </section>
+
+  <section class="bond-bar" id="bond-bar">
+    <div class="bond-icon" id="bond-icon">◆</div>
+    <div class="bond-track"><div class="bond-fill" id="bond-fill" style="width:55%"></div></div>
+    <div class="bond-label" id="bond-label">55 / 100</div>
+    <div class="bond-phase" id="bond-phase">Warm</div>
+  </section>
+
+  <section class="play-mat">
+    <div class="relics-tray" id="relics-tray"></div>
+    <div class="banner" id="banner">
+      <h3 id="banner-title">Welcome to Senior Year</h3>
+      <p id="banner-text">Press Start to begin your run.</p>
+    </div>
+    <button class="end-turn-btn" id="btn-end-turn">START</button>
+    <div class="deck-info">
+      <span class="clickable" id="deck-count-btn" title="View Deck">📚 Deck: <b id="deck-count">10</b></span>
+      <span>✋ Hand: <b id="hand-count">0</b></span>
+      <span>♻ Pile: <b id="discard-count">0</b></span>
+    </div>
+    <div class="gold-display">🪙 <span id="gold-val">0</span></div>
+  </section>
+
+  <section class="player-lane lane-aaron">
+    <div class="portrait-wrap"><div class="portrait aaron" id="portrait-a">A</div></div>
+    <div class="player-info">
+      <div class="player-name"><span id="name-a">Aaron</span> <span class="player-pref">· Roguelike Enjoyer</span></div>
+      <div class="stat-row">
+        <div class="stat-pill joy" id="a-joy-pill"><div class="stat-fill" id="a-joy-fill"></div><span>😊 <span class="stat-val" id="a-joy">50</span></span></div>
+        <div class="stat-pill stress" id="a-stress-pill"><div class="stat-fill" id="a-stress-fill"></div><span>🔥 <span class="stat-val" id="a-stress">0</span></span></div>
+        <div class="stat-pill career" id="a-career-pill"><div class="stat-fill" id="a-career-fill"></div><span>💼 <span class="stat-val" id="a-career">30</span></span></div>
+      </div>
+    </div>
+    <div class="lane-right"><div class="buffs" id="a-buffs"></div><div class="crystals" id="a-crystals"></div></div>
+  </section>
+
+  <section class="hand-zone"><div class="hand" id="hand"></div></section>
+</main>
+
+<div id="modal-root"></div>
+<canvas id="particle-canvas"></canvas>
+<div class="toast-zone" id="toast-zone"></div>
+
+<script>
+/* ============================================================================
+   PROJECT RESONANCE: SENIOR YEAR — ANNIVERSARY EDITION v5.0
+   Architecture: Event Bus + Immutable State + Reducer + Tutorial Engine
+   ============================================================================ */
+
+// ======================== EVENT BUS ========================
+const Events = (() => {
+  const listeners = new Map();
+  return {
+    on(event, fn) {
+      if (!listeners.has(event)) listeners.set(event, new Set());
+      listeners.get(event).add(fn);
+      return () => listeners.get(event)?.delete(fn);
+    },
+    emit(event, payload) {
+      listeners.get(event)?.forEach(fn => {
+        try { fn(payload); } catch(e) { console.error(`[Events] ${event}:`, e); }
+      });
+    }
+  };
+})();
+
+// ======================== CONFIG ========================
+const CONFIG = {
+  VERSION: '5.0.0-anniversary',
+  SAVE_KEY: 'resonance_save_v5',
+  META_KEY: 'resonance_meta_v5',
+  SETTINGS_KEY: 'resonance_settings_v5',
+  MAX_HAND: 7,
+  DRAW_PER_DAY: 5,
+  MAX_UNDO: 5,
+  CRIT_BASE_CHANCE: 0.10,
+  CRIT_MULTIPLIER: 1.5,
+  STREAK_GOLD_THRESHOLD: 3,
+  STREAK_DRAW_THRESHOLD: 5,
+  BOSS_DAYS: [7, 14, 21, 28],
+  SHOP_DAYS: [3, 6, 9, 12, 15, 18, 24, 27],
+  RELIC_DAYS: [7, 14, 21],
+  DEFAULT_NAMES: { aaron: 'Aaron', jason: 'Jason' },
+  NAME_MAX_LENGTH: 14,
+  BOND_PHASES: [
+    { max: 20,  name: 'Distant',    icon: '◌',  color: '#6b7280' },
+    { max: 40,  name: 'Tenuous',    icon: '◈',  color: '#92400e' },
+    { max: 60,  name: 'Steady',     icon: '◆',  color: '#d97706' },
+    { max: 80,  name: 'Bonded',     icon: '✦',  color: '#f59e0b' },
+    { max: 100, name: 'Resonant',   icon: '✵',  color: '#ffd76a' }
+  ],
+  DIFFICULTY: {
+    casual:    { name: 'Casual',    crystals: 4, stressMult: 0.7, joyMult: 1.2, desc: 'Forgiving. 4💎, less stress.' },
+    standard:  { name: 'Standard',  crystals: 3, stressMult: 1.0, joyMult: 1.0, desc: 'Balanced. The intended run.' },
+    nightmare: { name: 'Nightmare', crystals: 2, stressMult: 1.4, joyMult: 0.85, desc: 'Brutal. 2💎, harsh penalties.' }
+  },
+  DAY_TYPES: [
+    { id: 'sunny',  icon: '☀️', name: 'Sunny',    joyMod: 3,  stressMod: -2, weight: 3 },
+    { id: 'rainy',  icon: '🌧️', name: 'Rainy',    joyMod: 0,  stressMod: 3,  weight: 2 },
+    { id: 'exam',   icon: '📝', name: 'Exam Day', joyMod: -3, stressMod: 8,  weight: 1 },
+    { id: 'holiday',icon: '🎉', name: 'Holiday',  joyMod: 8,  stressMod: -6, weight: 1 },
+    { id: 'normal', icon: '📅', name: 'Regular',  joyMod: 0,  stressMod: 0,  weight: 4 }
+  ]
+};
+
+// ======================== UTILITIES ========================
+const U = {
+  clamp: (v, min, max) => Math.max(min, Math.min(max, v)),
+  pick: (rng, arr) => arr[Math.floor(rng() * arr.length)],
+  weightedPick: (rng, arr, weightKey = 'weight') => {
+    const total = arr.reduce((sum, x) => sum + (x[weightKey] || 1), 0);
+    let r = rng() * total;
+    for (const x of arr) { r -= (x[weightKey] || 1); if (r <= 0) return x; }
+    return arr[arr.length - 1];
+  },
+  shuffle: (rng, arr) => {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(rng() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  },
+  uid: () => Math.random().toString(36).slice(2, 11) + Date.now().toString(36).slice(-4),
+  seededRng: (seed) => {
+    let s = (seed | 0) || 1;
+    return () => {
+      s = (s + 0x6D2B79F5) | 0;
+      let t = Math.imul(s ^ (s >>> 15), 1 | s);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  },
+  hashStr: (s) => {
+    let h = 2166136261;
+    for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return Math.abs(h);
+  },
+  deepClone: (x) => {
+    if (x === null || typeof x !== 'object') return x;
+    try { return JSON.parse(JSON.stringify(x)); } catch(e) { return x; }
+  },
+  sanitizeName: (s) => (s || '').trim().replace(/[<>]/g, '').slice(0, CONFIG.NAME_MAX_LENGTH) || null,
+  tpl: (str, names) => str
+    .replace(/\{aaron\}/g, names?.aaron || CONFIG.DEFAULT_NAMES.aaron)
+    .replace(/\{jason\}/g, names?.jason || CONFIG.DEFAULT_NAMES.jason)
+    .replace(/\{A\}/g, (names?.aaron || CONFIG.DEFAULT_NAMES.aaron).charAt(0).toUpperCase())
+    .replace(/\{J\}/g, (names?.jason || CONFIG.DEFAULT_NAMES.jason).charAt(0).toUpperCase())
+};
+
+// ======================== DATA REGISTRIES ========================
+const Cards = (() => {
+  const registry = {
+    quick_run: { id: 'quick_run', type: 'rogue', rarity: 'common', name: 'Quick Run', art: '⚔️', cost: 1,
+      desc: 'Fast solo roguelike run.',
+      effects: [{t:'aaron.joy',v:15},{t:'aaron.stress',v:5}],
+      mastery: [{level:2, bonus:[{t:'aaron.joy',v:4}]}, {level:3, bonus:[{t:'aaron.stress',v:-5}]}] },
+    speedrun: { id: 'speedrun', type: 'rogue', rarity: 'rare', name: 'Speedrun Challenge', art: '⚡', cost: 2,
+      desc: 'High risk, high reward. Needs focus.',
+      effects: [{t:'aaron.joy',v:25},{t:'aaron.stress',v:15},{t:'aaron.career',v:5}],
+      reqs: [{t:'aaron.stress', op:'<', v:55}],
+      mastery: [{level:2, bonus:[{t:'aaron.joy',v:5}]}, {level:3, bonus:[{t:'aaron.career',v:8}]}] },
+    rogue_coop: { id: 'rogue_coop', type: 'rogue', rarity: 'common', name: 'Co-op Roguelike', art: '🛡️', cost: 2,
+      desc: 'Team up in {aaron}\'s favorite.',
+      effects: [{t:'aaron.joy',v:18},{t:'jason.joy',v:12},{t:'bond',v:12}],
+      mastery: [{level:2, bonus:[{t:'bond',v:4}]}, {level:3, bonus:[{t:'aaron.joy',v:5},{t:'jason.joy',v:5}]}] },
+    tournament: { id: 'tournament', type: 'rogue', rarity: 'epic', name: 'Rogue Tournament', art: '🏆', cost: 3,
+      desc: '{aaron} enters a local tournament.',
+      effects: [{t:'aaron.joy',v:30},{t:'aaron.career',v:10},{t:'aaron.stress',v:20},{t:'bond',v:8}],
+      mastery: [{level:2, bonus:[{t:'aaron.career',v:5}]}, {level:3, bonus:[{t:'aaron.joy',v:10}]}] },
+    chill_solo: { id: 'chill_solo', type: 'rogue', rarity: 'common', name: 'Chill Solo Run', art: '🎮', cost: 1,
+      desc: 'Low-stakes fun. Reduces stress.',
+      effects: [{t:'aaron.joy',v:10},{t:'aaron.stress',v:-12}],
+      mastery: [{level:2, bonus:[{t:'aaron.stress',v:-4}]}, {level:3, bonus:[{t:'aaron.joy',v:5}]}] },
+    aaron_build: { id: 'aaron_build', type: 'rogue', rarity: 'rare', name: 'Favorite Build', art: '✨', cost: 2,
+      desc: '{aaron} perfects a build. Gains Focused.',
+      effects: [{t:'aaron.joy',v:15},{t:'aaron.career',v:8}], grants: [{who:'aaron', buff:'focused'}],
+      mastery: [{level:2, bonus:[{t:'aaron.joy',v:5}]}, {level:3, bonus:[{t:'aaron.career',v:8}]}] },
+    ranked_solo: { id: 'ranked_solo', type: 'asy', rarity: 'common', name: 'Ranked Solo', art: '🕵️', cost: 2,
+      desc: 'Intense ranked grind. Needs low stress.',
+      effects: [{t:'jason.joy',v:22},{t:'jason.stress',v:18}],
+      reqs: [{t:'jason.stress', op:'<', v:60}],
+      mastery: [{level:2, bonus:[{t:'jason.joy',v:5}]}, {level:3, bonus:[{t:'jason.career',v:5}]}] },
+    duo_queue: { id: 'duo_queue', type: 'asy', rarity: 'rare', name: 'Duo Queue', art: '🎭', cost: 3,
+      desc: 'Intense co-op. Both need to be calm.',
+      effects: [{t:'jason.joy',v:20},{t:'aaron.joy',v:12},{t:'bond',v:18},{t:'aaron.stress',v:15},{t:'jason.stress',v:15}],
+      reqs: [{t:'jason.stress', op:'<', v:55}, {t:'aaron.stress', op:'<', v:55}],
+      mastery: [{level:2, bonus:[{t:'bond',v:5}]}, {level:3, bonus:[{t:'jason.joy',v:8},{t:'aaron.joy',v:5}]}] },
+    practice: { id: 'practice', type: 'asy', rarity: 'common', name: 'Tourney Practice', art: '🎯', cost: 2,
+      desc: 'Serious practice. Boosts career.',
+      effects: [{t:'jason.joy',v:12},{t:'jason.career',v:15},{t:'jason.stress',v:10}],
+      mastery: [{level:2, bonus:[{t:'jason.career',v:5}]}, {level:3, bonus:[{t:'jason.joy',v:5}]}] },
+    coaching: { id: 'coaching', type: 'asy', rarity: 'common', name: 'Coach Newbies', art: '🧑‍🏫', cost: 1,
+      desc: '{jason} teaches others. Gains Focused.',
+      effects: [{t:'jason.joy',v:8},{t:'jason.career',v:12}], grants: [{who:'jason', buff:'focused'}],
+      mastery: [{level:2, bonus:[{t:'jason.career',v:4}]}, {level:3, bonus:[{t:'jason.joy',v:5}]}] },
+    big_play: { id: 'big_play', type: 'asy', rarity: 'epic', name: 'Clutch Play', art: '🌟', cost: 3,
+      desc: '{jason}\'s legendary play. Massive payoff.',
+      effects: [{t:'jason.joy',v:40},{t:'jason.stress',v:28}],
+      mastery: [{level:2, bonus:[{t:'jason.joy',v:8}]}, {level:3, bonus:[{t:'jason.stress',v:-8}]}] },
+    pizza: { id: 'pizza', type: 'chill', rarity: 'common', name: 'Pizza Night', art: '🍕', cost: 2,
+      desc: 'Order pizza. Massive stress relief.',
+      effects: [{t:'aaron.stress',v:-22},{t:'jason.stress',v:-22},{t:'aaron.joy',v:8},{t:'jason.joy',v:8},{t:'bond',v:10}],
+      mastery: [{level:2, bonus:[{t:'aaron.stress',v:-5},{t:'jason.stress',v:-5}]}, {level:3, bonus:[{t:'bond',v:6}]}] },
+    late_talks: { id: 'late_talks', type: 'chill', rarity: 'common', name: 'Late Night Talks', art: '🌙', cost: 1,
+      desc: 'Just talk. Bond grows.',
+      effects: [{t:'aaron.stress',v:-10},{t:'jason.stress',v:-10},{t:'bond',v:12}],
+      mastery: [{level:2, bonus:[{t:'bond',v:4}]}, {level:3, bonus:[{t:'aaron.joy',v:5},{t:'jason.joy',v:5}]}] },
+    movie: { id: 'movie', type: 'chill', rarity: 'common', name: 'Movie Marathon', art: '🎬', cost: 2,
+      desc: 'Binge a trilogy. Pure relaxation.',
+      effects: [{t:'aaron.joy',v:14},{t:'jason.joy',v:14},{t:'aaron.stress',v:-15},{t:'jason.stress',v:-15}],
+      mastery: [{level:2, bonus:[{t:'aaron.joy',v:4},{t:'jason.joy',v:4}]}, {level:3, bonus:[{t:'aaron.stress',v:-5},{t:'jason.stress',v:-5}]}] },
+    walk: { id: 'walk', type: 'chill', rarity: 'common', name: 'Walk in the Park', art: '🌳', cost: 1,
+      desc: 'Quick stress relief.',
+      effects: [{t:'aaron.stress',v:-14},{t:'jason.stress',v:-14},{t:'aaron.joy',v:4},{t:'jason.joy',v:4}],
+      mastery: [{level:2, bonus:[{t:'aaron.stress',v:-4},{t:'jason.stress',v:-4}]}, {level:3, bonus:[{t:'bond',v:4}]}] },
+    study_a: { id: 'study_a', type: 'life', rarity: 'common', name: '{aaron} Studies', art: '📚', cost: 1,
+      desc: '{aaron} hits the books.',
+      effects: [{t:'aaron.career',v:16},{t:'aaron.stress',v:12},{t:'aaron.joy',v:-3}],
+      synergy: {cond:'aaron.focused', bonus:[{t:'aaron.career',v:10}]},
+      mastery: [{level:2, bonus:[{t:'aaron.career',v:5}]}, {level:3, bonus:[{t:'aaron.stress',v:-5}]}] },
+    study_j: { id: 'study_j', type: 'life', rarity: 'common', name: '{jason} Studies', art: '💻', cost: 1,
+      desc: '{jason} grinds assignments.',
+      effects: [{t:'jason.career',v:16},{t:'jason.stress',v:12},{t:'jason.joy',v:-3}],
+      synergy: {cond:'jason.focused', bonus:[{t:'jason.career',v:10}]},
+      mastery: [{level:2, bonus:[{t:'jason.career',v:5}]}, {level:3, bonus:[{t:'jason.stress',v:-5}]}] },
+    group_proj: { id: 'group_proj', type: 'life', rarity: 'rare', name: 'Group Project', art: '👥', cost: 2,
+      desc: 'Collaborative work. Both gain career.',
+      effects: [{t:'aaron.career',v:14},{t:'jason.career',v:14},{t:'aaron.stress',v:12},{t:'jason.stress',v:12},{t:'bond',v:5}],
+      mastery: [{level:2, bonus:[{t:'aaron.career',v:4},{t:'jason.career',v:4}]}, {level:3, bonus:[{t:'bond',v:6}]}] },
+    career_fair: { id: 'career_fair', type: 'life', rarity: 'rare', name: 'Career Fair Prep', art: '📋', cost: 2,
+      desc: 'Both prep for career fair.',
+      effects: [{t:'aaron.career',v:18},{t:'jason.career',v:18},{t:'aaron.stress',v:10},{t:'jason.stress',v:10}],
+      mastery: [{level:2, bonus:[{t:'aaron.career',v:5},{t:'jason.career',v:5}]}, {level:3, bonus:[{t:'aaron.joy',v:5},{t:'jason.joy',v:5}]}] },
+    allnighter: { id: 'allnighter', type: 'life', rarity: 'common', name: 'All-Nighter', art: '☕', cost: 0,
+      desc: 'Free. But brutal stress.',
+      effects: [{t:'aaron.joy',v:10},{t:'jason.joy',v:10},{t:'bond',v:8},{t:'aaron.stress',v:35},{t:'jason.stress',v:35}],
+      mastery: [{level:2, bonus:[{t:'aaron.stress',v:-5},{t:'jason.stress',v:-5}]}, {level:3, bonus:[{t:'aaron.joy',v:8},{t:'jason.joy',v:8}]}] },
+    perfect_sync: { id: 'perfect_sync', type: 'special', rarity: 'epic', name: 'Perfect Sync', art: '💫', cost: 3,
+      desc: 'Rare moment of total alignment.',
+      effects: [{t:'aaron.joy',v:22},{t:'jason.joy',v:22},{t:'bond',v:25}],
+      reqs: [{t:'bond', op:'>', v:50}],
+      mastery: [{level:2, bonus:[{t:'bond',v:8}]}, {level:3, bonus:[{t:'aaron.joy',v:8},{t:'jason.joy',v:8}]}] },
+    mentor: { id: 'mentor', type: 'special', rarity: 'rare', name: 'Mentor Session', art: '🎓', cost: 2,
+      desc: 'Learn from a professor.',
+      effects: [{t:'aaron.career',v:15},{t:'jason.career',v:15},{t:'aaron.joy',v:8},{t:'jason.joy',v:8}],
+      mastery: [{level:2, bonus:[{t:'aaron.career',v:5},{t:'jason.career',v:5}]}, {level:3, bonus:[{t:'aaron.joy',v:5},{t:'jason.joy',v:5}]}] },
+    getaway: { id: 'getaway', type: 'special', rarity: 'epic', name: 'Weekend Getaway', art: '🏖️', cost: 3,
+      desc: 'Reset everything.',
+      effects: [{t:'aaron.stress',v:-40},{t:'jason.stress',v:-40},{t:'aaron.joy',v:20},{t:'jason.joy',v:20},{t:'bond',v:15}],
+      mastery: [{level:2, bonus:[{t:'aaron.stress',v:-10},{t:'jason.stress',v:-10}]}, {level:3, bonus:[{t:'bond',v:10}]}] },
+    lucky_break: { id: 'lucky_break', type: 'special', rarity: 'rare', name: 'Lucky Break', art: '🍀', cost: 1,
+      desc: 'Career boost for both.',
+      effects: [{t:'aaron.career',v:20},{t:'jason.career',v:20}],
+      mastery: [{level:2, bonus:[{t:'aaron.career',v:5},{t:'jason.career',v:5}]}, {level:3, bonus:[{t:'aaron.joy',v:5},{t:'jason.joy',v:5}]}] },
+    flow_state: { id: 'flow_state', type: 'special', rarity: 'epic', name: 'Flow State', art: '🌊', cost: 2,
+      desc: 'Both in the zone. Requires calm.',
+      effects: [{t:'aaron.joy',v:20},{t:'jason.joy',v:20},{t:'aaron.stress',v:-12},{t:'jason.stress',v:-12},{t:'aaron.career',v:8},{t:'jason.career',v:8}],
+      reqs: [{t:'aaron.stress', op:'<', v:45}, {t:'jason.stress', op:'<', v:45}],
+      mastery: [{level:2, bonus:[{t:'aaron.joy',v:5},{t:'jason.joy',v:5}]}, {level:3, bonus:[{t:'aaron.career',v:5},{t:'jason.career',v:5}]}] }
+  };
+  return {
+    get: (id) => registry[id],
+    all: () => Object.values(registry),
+    ids: () => Object.keys(registry),
+    price: (id) => {
+      const c = registry[id]; if (!c) return 99;
+      const rarMult = c.rarity === 'epic' ? 1.8 : c.rarity === 'rare' ? 1.4 : 1;
+      let base = 5;
+      if (c.cost >= 3) base = 9;
+      else if (c.cost >= 2) base = 7;
+      return Math.round(base * rarMult);
+    },
+    targetOf: (card) => {
+      const effs = card.effects || [];
+      const hasA = effs.some(e => e.t.startsWith('aaron.'));
+      const hasJ = effs.some(e => e.t.startsWith('jason.'));
+      const hasBond = effs.some(e => e.t === 'bond');
+      if (hasA && hasJ) return 'both';
+      if (hasA) return 'aaron';
+      if (hasJ) return 'jason';
+      if (hasBond) return 'bond';
+      return 'none';
+    }
+  };
+})();
+
+const Relics = (() => {
+  const registry = {
+    mini_fridge: { id: 'mini_fridge', name: 'Mini Fridge', art: '🧊', desc: 'Both recover 8 stress at end of day.',
+      hooks: { onDayEnd: (s) => { s.players.aaron.stress -= 8; s.players.jason.stress -= 8; return s; } } },
+    broken_router: { id: 'broken_router', name: 'Broken Router', art: '📡', desc: 'Asymmetric cards cost +1 crystal.',
+      hooks: { onCostCalc: (card, cost) => card.type === 'asy' ? cost + 1 : cost } },
+    energy_drinks: { id: 'energy_drinks', name: 'Energy Drinks', art: '🥫', desc: '+1 max Time Crystal per day.',
+      hooks: { onDayStart: (s) => { s.players.aaron.timeMax += 1; s.players.jason.timeMax += 1; return s; } } },
+    cozy_rug: { id: 'cozy_rug', name: 'Cozy Rug', art: '🛋️', desc: 'Chill cards cost -1 crystal (min 0).',
+      hooks: { onCostCalc: (card, cost) => card.type === 'chill' ? Math.max(0, cost - 1) : cost } },
+    study_group: { id: 'study_group', name: 'Study Group', art: '📖', desc: 'Study cards grant +5 joy instead of -3.',
+      hooks: { onEffectCalc: (effect, card) => (card.id.startsWith('study_') && effect.v === -3) ? {...effect, v: 5} : effect } },
+    gaming_chair: { id: 'gaming_chair', name: 'Gaming Chair', art: '🪑', desc: 'Cards gain Mastery 50% faster.',
+      hooks: { onMasteryCalc: (gain) => Math.ceil(gain * 1.5) } },
+    coffee_machine: { id: 'coffee_machine', name: 'Coffee Machine', art: '☕', desc: 'First card each day costs -1.',
+      hooks: { onCostCalc: (card, cost, s) => s.progress.actionsThisTurn === 0 ? Math.max(0, cost - 1) : cost } },
+    lucky_coin: { id: 'lucky_coin', name: 'Lucky Coin', art: '🪙', desc: '+2 gold at start of each day.',
+      hooks: { onDayStart: (s) => { s.gold += 2; return s; } } },
+    motiv_poster: { id: 'motiv_poster', name: 'Motivational Poster', art: '🖼️', desc: 'Level 2+ cards grant +2 extra Joy.',
+      hooks: { onEffectCalc: (effect, card) => (card.level >= 2 && effect.t.endsWith('joy') && effect.v > 0) ? {...effect, v: effect.v + 2} : effect } },
+    old_tv: { id: 'old_tv', name: 'Old CRT TV', art: '📺', desc: 'Chill cards give +5 bond.',
+      hooks: { onEffectCalc: (effect, card) => (card.type === 'chill' && effect.t === 'bond') ? {...effect, v: effect.v + 5} : effect } },
+    protein_shakes: { id: 'protein_shakes', name: 'Protein Shakes', art: '🥤', desc: 'Stress penalties reduced by 20%.',
+      hooks: { onEffectCalc: (effect) => (effect.t.endsWith('stress') && effect.v > 0) ? {...effect, v: Math.round(effect.v * 0.8)} : effect } },
+    dual_monitors: { id: 'dual_monitors', name: 'Dual Monitors', art: '🖥️', desc: 'Asymmetric cards give +5 career.',
+      hooks: { onEffectCalc: (effect, card) => (card.type === 'asy' && effect.t.endsWith('career')) ? {...effect, v: effect.v + 5} : effect } },
+    dream_journal: { id: 'dream_journal', name: 'Dream Journal', art: '📔', desc: 'Draw 1 extra card each morning.',
+      hooks: { onDrawCalc: (count) => count + 1 } },
+    friendship_bracelet: { id: 'friendship_bracelet', name: 'Friendship Bracelet', art: '🎗️', desc: 'Bond decays 50% slower.',
+      hooks: { onDayEnd: (s) => { s.bond += 1; return s; } } },
+    four_leaf_clover: { id: 'four_leaf_clover', name: 'Four-Leaf Clover', art: '🍀', desc: 'Crit chance increased by 10%.',
+      hooks: { onCritCalc: (chance) => chance + 0.10 } },
+    headphones: { id: 'headphones', name: 'Noise-Cancel Headphones', art: '🎧', desc: 'Stress gain reduced by 3 on all cards.',
+      hooks: { onEffectCalc: (effect) => (effect.t.endsWith('stress') && effect.v > 0) ? {...effect, v: Math.max(0, effect.v - 3)} : effect } }
+  };
+  return {
+    get: (id) => registry[id],
+    all: () => Object.values(registry),
+    ids: () => Object.keys(registry)
+  };
+})();
+
+const GameEvents = (() => {
+  const pool = [
+    { id: 'pop_quiz', title: 'Pop Quiz!', desc: 'Your professor springs a surprise quiz during lecture.',
+      choices: [
+        { text: '{aaron} and {jason} cram together', fx: [{t:'aaron.stress',v:12},{t:'jason.stress',v:12},{t:'aaron.career',v:8},{t:'jason.career',v:8},{t:'bond',v:5}], timeCost:{a:1,j:1} },
+        { text: 'Skip class entirely', fx: [{t:'aaron.joy',v:8},{t:'jason.joy',v:8},{t:'aaron.career',v:-8},{t:'jason.career',v:-8}], timeCost:{a:0,j:0} },
+        { text: '{aaron} bluffs through it', fx: [{t:'aaron.stress',v:18},{t:'jason.stress',v:8},{t:'aaron.career',v:5}], timeCost:{a:1,j:0} }
+      ]},
+    { id: 'interview', title: 'Surprise Interview', desc: 'A recruiter reaches out for an impromptu chat.',
+      choices: [
+        { text: '{aaron} takes it', fx: [{t:'aaron.career',v:20},{t:'aaron.stress',v:15}], timeCost:{a:2,j:0} },
+        { text: '{jason} takes it', fx: [{t:'jason.career',v:20},{t:'jason.stress',v:15}], timeCost:{a:0,j:2} },
+        { text: 'Both skip for gaming', fx: [{t:'aaron.joy',v:10},{t:'jason.joy',v:10},{t:'bond',v:8}], timeCost:{a:0,j:0} }
+      ]},
+    { id: 'party', title: 'Party Invitation', desc: 'Classmates are throwing a party tonight.',
+      choices: [
+        { text: 'Go and socialize', fx: [{t:'aaron.joy',v:12},{t:'jason.joy',v:12},{t:'bond',v:10},{t:'aaron.stress',v:8},{t:'jason.stress',v:8}], timeCost:{a:1,j:1} },
+        { text: 'Stay in and game', fx: [{t:'aaron.joy',v:8},{t:'jason.joy',v:8},{t:'bond',v:12}], timeCost:{a:0,j:0} },
+        { text: 'Only {aaron} goes', fx: [{t:'aaron.joy',v:15},{t:'aaron.stress',v:10},{t:'bond',v:-5}], timeCost:{a:1,j:0} }
+      ]},
+    { id: 'laptop', title: 'Broken Laptop', desc: '{jason}\'s laptop just died before a deadline.',
+      choices: [
+        { text: '{aaron} lends his', fx: [{t:'bond',v:15},{t:'aaron.stress',v:10}], timeCost:{a:1,j:0} },
+        { text: 'Hit the library together', fx: [{t:'jason.career',v:10},{t:'aaron.career',v:10},{t:'bond',v:8}], timeCost:{a:1,j:1} },
+        { text: '{jason} panics alone', fx: [{t:'jason.stress',v:25},{t:'jason.career',v:5},{t:'bond',v:-5}], timeCost:{a:0,j:1} }
+      ]},
+    { id: 'sunny', title: 'Sunny Day', desc: 'Perfect weather. Everything feels lighter.',
+      choices: [
+        { text: 'Study outside', fx: [{t:'aaron.career',v:10},{t:'jason.career',v:10},{t:'aaron.stress',v:-10},{t:'jason.stress',v:-10}], timeCost:{a:1,j:1} },
+        { text: 'Skip everything, enjoy', fx: [{t:'aaron.joy',v:15},{t:'jason.joy',v:15},{t:'bond',v:10},{t:'aaron.career',v:-5},{t:'jason.career',v:-5}], timeCost:{a:0,j:0} }
+      ]},
+    { id: 'rainy', title: 'Rainy Study Session', desc: 'Cozy weather perfect for grinding.',
+      choices: [
+        { text: 'Marathon study', fx: [{t:'aaron.career',v:15},{t:'jason.career',v:15},{t:'aaron.stress',v:10},{t:'jason.stress',v:10}], timeCost:{a:1,j:1} },
+        { text: 'Netflix & chill', fx: [{t:'aaron.joy',v:10},{t:'jason.joy',v:10},{t:'aaron.stress',v:-12},{t:'jason.stress',v:-12},{t:'bond',v:8}], timeCost:{a:0,j:0} }
+      ]},
+    { id: 'family', title: 'Family Call', desc: '{aaron}\'s mom wants a long video chat.',
+      choices: [
+        { text: 'Take the call', fx: [{t:'aaron.joy',v:12},{t:'aaron.stress',v:-8}], timeCost:{a:1,j:0} },
+        { text: 'Text her back later', fx: [{t:'aaron.stress',v:8},{t:'aaron.joy',v:-5}], timeCost:{a:0,j:0} },
+        { text: '{jason} joins in', fx: [{t:'aaron.joy',v:15},{t:'bond',v:8},{t:'aaron.stress',v:-10}], timeCost:{a:1,j:1} }
+      ]},
+    { id: 'freefood', title: 'Free Food on Campus', desc: 'Club giving out free burritos.',
+      choices: [
+        { text: 'Grab some together', fx: [{t:'aaron.joy',v:8},{t:'jason.joy',v:8},{t:'bond',v:5},{t:'aaron.stress',v:-5},{t:'jason.stress',v:-5}], timeCost:{a:0,j:0} },
+        { text: 'Grab extra to go', fx: [{t:'aaron.joy',v:5},{t:'jason.joy',v:5}], timeCost:{a:0,j:0}, gold: 2 }
+      ]},
+    { id: 'office', title: 'Professor Office Hours', desc: 'Chance to make a good impression.',
+      choices: [
+        { text: 'Both go', fx: [{t:'aaron.career',v:12},{t:'jason.career',v:12},{t:'aaron.stress',v:8},{t:'jason.stress',v:8}], timeCost:{a:1,j:1} },
+        { text: '{aaron} goes alone', fx: [{t:'aaron.career',v:18},{t:'aaron.stress',v:10}], timeCost:{a:1,j:0} },
+        { text: '{jason} goes alone', fx: [{t:'jason.career',v:18},{t:'jason.stress',v:10}], timeCost:{a:0,j:1} }
+      ]},
+    { id: 'tournament_ann', title: 'Gaming Tournament', desc: 'Local esports tournament announced.',
+      choices: [
+        { text: 'Enter as duo', fx: [{t:'aaron.joy',v:15},{t:'jason.joy',v:20},{t:'bond',v:15},{t:'jason.career',v:10},{t:'aaron.stress',v:12},{t:'jason.stress',v:15}], timeCost:{a:2,j:2} },
+        { text: '{jason} enters solo', fx: [{t:'jason.joy',v:18},{t:'jason.career',v:12},{t:'jason.stress',v:15}], timeCost:{a:0,j:2} },
+        { text: 'Watch from home', fx: [{t:'aaron.joy',v:8},{t:'jason.joy',v:8},{t:'bond',v:5}], timeCost:{a:0,j:0} }
+      ]},
+    { id: 'thesis', title: 'Thesis Panic', desc: '{aaron} realizes his thesis is behind schedule.',
+      choices: [
+        { text: 'Pull an all-nighter', fx: [{t:'aaron.career',v:25},{t:'aaron.stress',v:30}], timeCost:{a:2,j:0} },
+        { text: '{jason} helps outline', fx: [{t:'aaron.career',v:15},{t:'bond',v:15},{t:'aaron.stress',v:10},{t:'jason.stress',v:5}], timeCost:{a:1,j:1} },
+        { text: 'Procrastinate together', fx: [{t:'aaron.joy',v:12},{t:'jason.joy',v:8},{t:'aaron.stress',v:15},{t:'aaron.career',v:-5}], timeCost:{a:0,j:0} }
+      ]},
+    { id: 'gym', title: 'Gym Buddy?', desc: '{jason} wants to hit the gym together.',
+      choices: [
+        { text: 'Go together', fx: [{t:'aaron.stress',v:-18},{t:'jason.stress',v:-18},{t:'bond',v:10},{t:'aaron.joy',v:5},{t:'jason.joy',v:5}], timeCost:{a:1,j:1} },
+        { text: '{aaron} goes alone', fx: [{t:'aaron.stress',v:-22},{t:'aaron.joy',v:8}], timeCost:{a:1,j:0} },
+        { text: 'Skip it', fx: [{t:'jason.joy',v:-5}], timeCost:{a:0,j:0} }
+      ]}
+  ];
+  const bosses = {
+    7: { id: 'midterms', title: '👹 Midterms Week', desc: 'The first big test of senior year. Both are on edge.',
+      choices: [
+        { text: 'Study marathon together', fx: [{t:'aaron.career',v:25},{t:'jason.career',v:25},{t:'aaron.stress',v:25},{t:'jason.stress',v:25},{t:'bond',v:10}], timeCost:{a:2,j:2} },
+        { text: 'Split up and focus', fx: [{t:'aaron.career',v:20},{t:'jason.career',v:20},{t:'aaron.stress',v:20},{t:'jason.stress',v:20}], timeCost:{a:2,j:2} },
+        { text: 'Pull a stress-relief night first', fx: [{t:'aaron.joy',v:15},{t:'jason.joy',v:15},{t:'aaron.career',v:10},{t:'jason.career',v:10},{t:'bond',v:12}], timeCost:{a:1,j:1} }
+      ]},
+    14: { id: 'career_fair', title: '👹 Career Fair', desc: 'Recruiters from top companies are on campus. This is it.',
+      choices: [
+        { text: 'Both hustle the floor', fx: [{t:'aaron.career',v:30},{t:'jason.career',v:30},{t:'aaron.stress',v:20},{t:'jason.stress',v:20}], timeCost:{a:2,j:2} },
+        { text: '{aaron} targets startups', fx: [{t:'aaron.career',v:35},{t:'aaron.stress',v:22},{t:'jason.career',v:5}], timeCost:{a:2,j:1} },
+        { text: '{jason} targets big corps', fx: [{t:'jason.career',v:35},{t:'jason.stress',v:22},{t:'aaron.career',v:5}], timeCost:{a:1,j:2} },
+        { text: 'Skip it, too nervous', fx: [{t:'aaron.stress',v:-10},{t:'jason.stress',v:-10},{t:'aaron.career',v:-10},{t:'jason.career',v:-10}], timeCost:{a:0,j:0} }
+      ]},
+    21: { id: 'thesis_defense', title: '👹 Thesis Defense', desc: 'Final presentations. Everything rides on this.',
+      choices: [
+        { text: '{aaron} presents, {jason} supports', fx: [{t:'aaron.career',v:35},{t:'aaron.stress',v:25},{t:'bond',v:15}], timeCost:{a:2,j:1} },
+        { text: '{jason} presents, {aaron} supports', fx: [{t:'jason.career',v:35},{t:'jason.stress',v:25},{t:'bond',v:15}], timeCost:{a:1,j:2} },
+        { text: 'Both crush their defenses', fx: [{t:'aaron.career',v:28},{t:'jason.career',v:28},{t:'aaron.stress',v:28},{t:'jason.stress',v:28},{t:'bond',v:8}], timeCost:{a:2,j:2} }
+      ]},
+    28: { id: 'graduation', title: '👹 Graduation Day', desc: 'The final day. Cap, gown, future. How will it end?',
+      choices: [
+        { text: 'Celebrate together', fx: [{t:'aaron.joy',v:30},{t:'jason.joy',v:30},{t:'bond',v:25},{t:'aaron.stress',v:-20},{t:'jason.stress',v:-20}], timeCost:{a:0,j:0} },
+        { text: 'Say bittersweet goodbyes', fx: [{t:'bond',v:35},{t:'aaron.joy',v:15},{t:'jason.joy',v:15},{t:'aaron.stress',v:10},{t:'jason.stress',v:10}], timeCost:{a:0,j:0} },
+        { text: 'One last gaming session', fx: [{t:'aaron.joy',v:25},{t:'jason.joy',v:25},{t:'bond',v:30}], timeCost:{a:0,j:0} }
+      ]}
+  };
+  return {
+    pick: (rng, day, week) => {
+      if (CONFIG.BOSS_DAYS.includes(day) && bosses[day]) return { ...bosses[day], isBoss: true };
+      const p = pool.filter((_, i) => i < 4 + week * 2);
+      return { ...p[Math.floor(rng() * p.length)], isBoss: false };
+    }
+  };
+})();
+
+const Achievements = (() => {
+  const registry = {
+    first_steps: { name: 'First Steps', icon: '👣', desc: 'Play your first card.', check: (s) => s.stats.totalCardsPlayed >= 1 },
+    deck_builder: { name: 'Deck Builder', icon: '🏗️', desc: 'Own 15+ cards in deck.', check: (s) => getAllCards(s).length >= 15 },
+    mastery: { name: 'Mastery', icon: '⭐', desc: 'Get a card to level 3.', check: (s) => getAllCards(s).some(c => c.level >= 3) },
+    bond_bros: { name: 'Bond Brothers', icon: '🤝', desc: 'Reach 100 bond.', check: (s) => s.bond >= 100 },
+    career_masters: { name: 'Career Masters', icon: '🎓', desc: 'Both reach 100 career.', check: (s) => s.players.aaron.career >= 100 && s.players.jason.career >= 100 },
+    stress_free: { name: 'Stress-Free Day', icon: '🧘', desc: 'End a day with 0 stress on both.', check: (s) => s.players.aaron.stress === 0 && s.players.jason.stress === 0 && s.stats.daysPlayed > 0 },
+    relic_hunter: { name: 'Relic Hunter', icon: '🏺', desc: 'Collect 4 relics.', check: (s) => s.relics.length >= 4 },
+    survivor: { name: 'Survivor', icon: '🏁', desc: 'Complete all 28 days.', check: (s) => s.progress.day > 28 },
+    perfect_run: { name: 'Perfect Run', icon: '👑', desc: 'Graduate with all stats > 75.', check: (s) => s.progress.day > 28 && s.players.aaron.joy > 75 && s.players.jason.joy > 75 && s.players.aaron.career > 75 && s.players.jason.career > 75 && s.bond > 75 },
+    speedrunner: { name: 'Speedrunner', icon: '⚡', desc: 'Get early career victory by day 20.', check: (s) => s.players.aaron.career >= 100 && s.players.jason.career >= 100 && s.progress.day <= 20 },
+    big_spender: { name: 'Big Spender', icon: '💰', desc: 'Accumulate 30+ gold.', check: (s) => s.gold >= 30 },
+    lucky_streak: { name: 'Lucky Streak', icon: '🔥', desc: 'Hit a 5-day momentum streak.', check: (s) => s.progress.streak >= 5 },
+    crit_king: { name: 'Crit King', icon: '💥', desc: 'Land 5 critical hits.', check: (s) => s.stats.crits >= 5 },
+    boss_slayer: { name: 'Boss Slayer', icon: '👹', desc: 'Clear all 4 boss days.', check: (s) => s.stats.bossDaysCleared >= 4 }
+  };
+  return {
+    all: () => Object.entries(registry),
+    check: (id, state) => registry[id]?.check(state) || false
+  };
+})();
+
+function getAllCards(s) { return [...s.deck.draw, ...s.deck.hand, ...s.deck.discard]; }
+
+const STARTING_DECK = ['quick_run','quick_run','rogue_coop','ranked_solo','pizza','late_talks','study_a','study_j','chill_solo','coaching'];
+
+// ======================== AUDIO ENGINE ========================
+class AudioEngine {
+  constructor() { this.ctx = null; this.muted = false; this.volume = 0.6; this.enabled = true; }
+  init() { try { this.ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) { this.enabled = false; } }
+  resume() { if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume(); }
+  setVolume(v) { this.volume = U.clamp(v, 0, 1); }
+  play(type) {
+    if (!this.enabled || this.muted || !this.ctx) return;
+    this.resume();
+    const now = this.ctx.currentTime;
+    const patterns = {
+      card:    [{f:523,t:0,d:0.08},{f:784,t:0.05,d:0.1}],
+      crit:    [{f:784,t:0,d:0.08},{f:1047,t:0.05,d:0.1},{f:1319,t:0.1,d:0.15}],
+      error:   [{f:180,t:0,d:0.15,w:'sawtooth'}],
+      turn:    [{f:659,t:0,d:0.1},{f:523,t:0.1,d:0.15}],
+      draw:    [{f:880,t:0,d:0.05}],
+      relic:   [{f:523,t:0,d:0.1},{f:659,t:0.1,d:0.1},{f:784,t:0.2,d:0.2}],
+      achieve: [{f:523,t:0,d:0.1},{f:659,t:0.08,d:0.1},{f:784,t:0.16,d:0.1},{f:1047,t:0.24,d:0.25}],
+      levelup: [{f:659,t:0,d:0.1},{f:784,t:0.08,d:0.1},{f:988,t:0.16,d:0.15},{f:1319,t:0.24,d:0.2}],
+      damage:  [{f:220,t:0,d:0.1,w:'sawtooth'},{f:165,t:0.1,d:0.15,w:'sawtooth'}],
+      boss:    [{f:110,t:0,d:0.2,w:'sawtooth'},{f:82,t:0.15,d:0.3,w:'sawtooth'}],
+      win:     [{f:523,t:0,d:0.15},{f:659,t:0.15,d:0.15},{f:784,t:0.3,d:0.15},{f:1047,t:0.45,d:0.4}],
+      click:   [{f:660,t:0,d:0.04}]
+    };
+    const notes = patterns[type] || patterns.card;
+    notes.forEach(n => {
+      try {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = n.w || 'triangle';
+        osc.frequency.setValueAtTime(n.f, now + n.t);
+        gain.gain.setValueAtTime(0, now + n.t);
+        gain.gain.linearRampToValueAtTime(0.12 * this.volume, now + n.t + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + n.t + n.d);
+        osc.connect(gain); gain.connect(this.ctx.destination);
+        osc.start(now + n.t); osc.stop(now + n.t + n.d + 0.02);
+      } catch(e) {}
+    });
+  }
+  toggle() { this.muted = !this.muted; return this.muted; }
+}
+
+// ======================== PARTICLES ========================
+class ParticleSystem {
+  constructor(canvas) {
+    this.canvas = canvas; this.ctx = canvas.getContext('2d');
+    this.particles = []; this.running = false; this.enabled = true; this.intensity = 1;
+    this.resize();
+    window.addEventListener('resize', () => this.resize());
+  }
+  resize() { this.canvas.width = window.innerWidth; this.canvas.height = window.innerHeight; }
+  emit(x, y, color = '#ffd76a', count = 24, spread = 10) {
+    if (!this.enabled) return;
+    count = Math.round(count * this.intensity);
+    for (let i = 0; i < count; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = Math.random() * spread + 3;
+      this.particles.push({ x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed - 2, life: 1, color, size: Math.random() * 4 + 2 });
+    }
+    if (!this.running) this.animate();
+  }
+  burstAt(el, color) {
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    this.emit(r.left + r.width/2, r.top + r.height/2, color, 30, 12);
+  }
+  animate() {
+    this.running = true;
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.particles = this.particles.filter(p => {
+      p.x += p.vx; p.y += p.vy; p.vy += 0.3; p.vx *= 0.98; p.life -= 0.025;
+      if (p.life <= 0) return false;
+      this.ctx.globalAlpha = p.life;
+      this.ctx.fillStyle = p.color;
+      this.ctx.beginPath();
+      this.ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+      this.ctx.fill();
+      return true;
+    });
+    this.ctx.globalAlpha = 1;
+    if (this.particles.length > 0) requestAnimationFrame(() => this.animate());
+    else { this.running = false; this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height); }
+  }
+}
+
+// ======================== SAVE SYSTEM ========================
+const Save = {
+  save(state) {
+    try {
+      const clean = U.deepClone(state);
+      delete clean.history; delete clean._lastPlay; delete clean._lastEvent; delete clean._dayDelta;
+      localStorage.setItem(CONFIG.SAVE_KEY, JSON.stringify(clean));
+      return true;
+    } catch(e) { return false; }
+  },
+  load() {
+    try {
+      const raw = localStorage.getItem(CONFIG.SAVE_KEY);
+      if (!raw) return null;
+      const s = JSON.parse(raw);
+      if (!s.meta?.version?.startsWith('5.')) { localStorage.removeItem(CONFIG.SAVE_KEY); return null; }
+      return s;
+    } catch(e) { return null; }
+  },
+  clear() { localStorage.removeItem(CONFIG.SAVE_KEY); },
+  saveMeta(meta) { try { localStorage.setItem(CONFIG.META_KEY, JSON.stringify(meta)); } catch(e) {} },
+  loadMeta() {
+    try { return JSON.parse(localStorage.getItem(CONFIG.META_KEY) || '{"totalRuns":0,"history":[],"tutorialDone":false}'); }
+    catch(e) { return {totalRuns:0,history:[],tutorialDone:false}; }
+  },
+  saveSettings(s) { try { localStorage.setItem(CONFIG.SETTINGS_KEY, JSON.stringify(s)); } catch(e) {} },
+  loadSettings() {
+    try { return JSON.parse(localStorage.getItem(CONFIG.SETTINGS_KEY) || '{"volume":0.6,"particles":true,"shake":true,"autoEnd":false}'); }
+    catch(e) { return {volume:0.6,particles:true,shake:true,autoEnd:false}; }
+  }
+};
+
+// ======================== STORE ========================
+class Store {
+  constructor(initial) {
+    this.state = U.deepClone(initial);
+    this.history = [];
+    this.listeners = [];
+    this.lastClean = U.deepClone(initial);
+  }
+  subscribe(fn) { this.listeners.push(fn); return () => { this.listeners = this.listeners.filter(l => l !== fn); }; }
+  pushHistory() {
+    this.history.push(U.deepClone(this.state));
+    if (this.history.length > CONFIG.MAX_UNDO) this.history.shift();
+  }
+  dispatch(action) {
+    this.pushHistory();
+    try {
+      this.state = GameReducer.reduce(this.state, action);
+      this.state = GameReducer.enforceBounds(this.state);
+      this.lastClean = U.deepClone(this.state);
+    } catch(e) {
+      console.error('[Store] Reducer error, recovering:', e);
+      this.state = U.deepClone(this.lastClean);
+      Events.emit('error', { message: 'State corruption prevented' });
+    }
+    this.notify();
+  }
+  setState(newState) {
+    this.state = U.deepClone(newState);
+    this.state = GameReducer.enforceBounds(this.state);
+    this.lastClean = U.deepClone(this.state);
+    this.notify();
+  }
+  undo() {
+    if (this.history.length === 0) return false;
+    this.state = this.history.pop();
+    this.notify();
+    return true;
+  }
+  notify() { this.listeners.forEach(fn => { try { fn(this.state); } catch(e) { console.error(e); } }); }
+}
+
+// ======================== REDUCER ========================
+const GameReducer = {
+  reduce(state, action) {
+    switch(action.type) {
+      case 'START_RUN': return this.startRun(state, action);
+      case 'START_DAY': return this.startDay(state);
+      case 'DRAW_HAND': return this.drawHand(state);
+      case 'MULLIGAN': return this.mulligan(state, action.ids);
+      case 'GENERATE_EVENT': return this.generateEvent(state);
+      case 'PLAY_CARD': return this.playCard(state, action.instanceId);
+      case 'RESOLVE_EVENT': return this.resolveEvent(state, action.choiceIdx);
+      case 'PASS_TURN': return this.passTurn(state);
+      case 'END_DAY': return this.endDay(state);
+      case 'DRAFT_RELIC': return this.draftRelic(state, action.relicId);
+      case 'SHOP_ADD_CARD': return this.shopAddCard(state, action.cardId);
+      case 'SHOP_REMOVE_CARD': return this.shopRemoveCard(state, action.instanceId);
+      case 'SHOP_BUY_RELIC': return this.shopBuyRelic(state, action.relicId);
+      case 'SHOP_UPGRADE_CARD': return this.shopUpgradeCard(state, action.instanceId);
+      default: return state;
+    }
+  },
+  startRun(state, { difficulty, seed, names }) {
+    const s = U.deepClone(state);
+    s.meta = {
+      runId: U.uid(), seed: seed || Date.now(), difficulty,
+      startedAt: Date.now(), version: CONFIG.VERSION,
+      names: {
+        aaron: U.sanitizeName(names?.aaron) || CONFIG.DEFAULT_NAMES.aaron,
+        jason: U.sanitizeName(names?.jason) || CONFIG.DEFAULT_NAMES.jason
+      }
+    };
+    s.rng = seed || Date.now();
+    s.progress = {
+      day: 1, phase: 'start', actionsThisTurn: 0, cardsPlayedToday: 0,
+      streak: 0, dayStarted: false, dayType: null, currentEvent: null
+    };
+    s.players = {
+      aaron: { joy: 55, stress: 10, career: 25, time: 3, timeMax: CONFIG.DIFFICULTY[difficulty].crystals, buffs: [] },
+      jason: { joy: 55, stress: 10, career: 25, time: 3, timeMax: CONFIG.DIFFICULTY[difficulty].crystals, buffs: [] }
+    };
+    s.bond = 55;
+    s.gold = 5;
+    s.deck = {
+      draw: STARTING_DECK.map(id => ({ instanceId: U.uid(), cardId: id, mastery: 0, level: 1, timesPlayed: 0 })),
+      hand: [], discard: [], removed: []
+    };
+    s.relics = [];
+    s.unlocks = { achievements: [], seenCards: [...STARTING_DECK] };
+    s.stats = {
+      totalCardsPlayed: 0, cardUsage: {}, eventsResolved: 0,
+      maxJoy: 55, minStress: 10, daysPlayed: 0, crits: 0, bossDaysCleared: 0
+    };
+    s.settings = Save.loadSettings();
+    return s;
+  },
+  startDay(state) {
+    const s = U.deepClone(state);
+    const diff = CONFIG.DIFFICULTY[s.meta.difficulty];
+    s.players.aaron.timeMax = diff.crystals;
+    s.players.jason.timeMax = diff.crystals;
+    s.players.aaron.time = diff.crystals;
+    s.players.jason.time = diff.crystals;
+    s.players.aaron.buffs = [];
+    s.players.jason.buffs = [];
+    s.relics.forEach(rId => {
+      const r = Relics.get(rId);
+      if (r?.hooks.onDayStart) r.hooks.onDayStart(s);
+    });
+    const rng = U.seededRng(s.rng + s.progress.day * 137);
+    if (CONFIG.BOSS_DAYS.includes(s.progress.day)) {
+      s.progress.dayType = s.progress.day === 28
+        ? { id: 'sunny', icon: '🎓', name: 'Graduation', joyMod: 10, stressMod: -5 }
+        : { id: 'exam', icon: '📝', name: 'Exam Week', joyMod: -5, stressMod: 10 };
+    } else {
+      s.progress.dayType = U.weightedPick(rng, CONFIG.DAY_TYPES);
+    }
+    s.progress.actionsThisTurn = 0;
+    s.progress.cardsPlayedToday = 0;
+    s.progress.phase = 'morning';
+    s.progress.dayStarted = true;
+    s.progress.currentEvent = null;
+    s._dayDelta = { aaron: {joy:0,stress:0,career:0}, jason: {joy:0,stress:0,career:0}, bond: 0, gold: 0, cardsPlayed: [] };
+    return s;
+  },
+  drawHand(state) {
+    const s = U.deepClone(state);
+    let drawCount = CONFIG.DRAW_PER_DAY;
+    s.relics.forEach(rId => {
+      const r = Relics.get(rId);
+      if (r?.hooks.onDrawCalc) drawCount = r.hooks.onDrawCalc(drawCount);
+    });
+    if (s.progress.streak >= CONFIG.STREAK_DRAW_THRESHOLD) drawCount += 1;
+    drawCount = Math.min(drawCount, CONFIG.MAX_HAND - s.deck.hand.length);
+    for (let i = 0; i < drawCount; i++) {
+      if (s.deck.draw.length === 0) {
+        if (s.deck.discard.length === 0) break;
+        const rng = U.seededRng(s.rng + s.progress.day * 1000 + i);
+        s.deck.draw = U.shuffle(rng, s.deck.discard);
+        s.deck.discard = [];
+      }
+      if (s.deck.draw.length > 0) s.deck.hand.push(s.deck.draw.shift());
+    }
+    return s;
+  },
+  mulligan(state, ids) {
+    const s = U.deepClone(state);
+    if (!ids || ids.length === 0) return s;
+    const toReplace = s.deck.hand.filter(c => ids.includes(c.instanceId));
+    const toKeep = s.deck.hand.filter(c => !ids.includes(c.instanceId));
+    // Shuffle replaced cards back into draw pile (not just push to end)
+    const rng = U.seededRng(s.rng + s.progress.day * 500);
+    s.deck.draw = U.shuffle(rng, [...s.deck.draw, ...toReplace]);
+    // Draw replacements, ensuring we don't draw the same cards back
+    for (let i = 0; i < toReplace.length; i++) {
+      if (s.deck.draw.length === 0) break;
+      let drawnIdx = s.deck.draw.findIndex(c => !ids.includes(c.instanceId));
+      if (drawnIdx === -1) drawnIdx = 0;
+      toKeep.push(s.deck.draw.splice(drawnIdx, 1)[0]);
+    }
+    s.deck.hand = toKeep;
+    return s;
+  },
+  generateEvent(state) {
+    const s = U.deepClone(state);
+    const rng = U.seededRng(s.rng + s.progress.day * 31);
+    const week = Math.ceil(s.progress.day / 7);
+    s.progress.currentEvent = GameEvents.pick(rng, s.progress.day, week);
+    s.progress.phase = 'event';
+    return s;
+  },
+  playCard(state, instanceId) {
+    const s = U.deepClone(state);
+    const cardIdx = s.deck.hand.findIndex(c => c.instanceId === instanceId);
+    if (cardIdx === -1) return state;
+    const instance = s.deck.hand[cardIdx];
+    const baseCard = Cards.get(instance.cardId);
+    if (!baseCard) return state;
+    let cost = baseCard.cost;
+    s.relics.forEach(rId => {
+      const r = Relics.get(rId);
+      if (r?.hooks.onCostCalc) cost = r.hooks.onCostCalc({...baseCard, level: instance.level}, cost, s);
+    });
+    cost = Math.max(0, cost);
+    const target = Cards.targetOf(baseCard);
+    if (target === 'both' || target === 'bond') {
+      if (s.players.aaron.time < cost || s.players.jason.time < cost) return state;
+    } else if (target === 'aaron') {
+      if (s.players.aaron.time < cost) return state;
+    } else if (target === 'jason') {
+      if (s.players.jason.time < cost) return state;
+    }
+    if (!this.checkReqs(s, baseCard)) return state;
+    if (target === 'both' || target === 'bond') {
+      s.players.aaron.time -= cost; s.players.jason.time -= cost;
+    } else if (target === 'aaron') {
+      s.players.aaron.time -= cost;
+    } else if (target === 'jason') {
+      s.players.jason.time -= cost;
+    }
+    let effects = U.deepClone(baseCard.effects);
+    if (instance.level >= 2 && baseCard.mastery) {
+      const l2 = baseCard.mastery.find(m => m.level === 2);
+      if (l2) effects = effects.concat(U.deepClone(l2.bonus));
+    }
+    if (instance.level >= 3 && baseCard.mastery) {
+      const l3 = baseCard.mastery.find(m => m.level === 3);
+      if (l3) effects = effects.concat(U.deepClone(l3.bonus));
+    }
+    let synActive = false;
+    if (baseCard.synergy) {
+      const [who, buff] = baseCard.synergy.cond.split('.');
+      if (s.players[who]?.buffs.includes(buff)) {
+        effects = effects.concat(U.deepClone(baseCard.synergy.bonus));
+        synActive = true;
+      }
+    }
+    effects = effects.map(eff => {
+      let e = eff;
+      s.relics.forEach(rId => {
+        const r = Relics.get(rId);
+        if (r?.hooks.onEffectCalc) e = r.hooks.onEffectCalc(e, {...baseCard, level: instance.level});
+      });
+      return e;
+    });
+    let critChance = CONFIG.CRIT_BASE_CHANCE;
+    s.relics.forEach(rId => {
+      const r = Relics.get(rId);
+      if (r?.hooks.onCritCalc) critChance = r.hooks.onCritCalc(critChance);
+    });
+    const critRng = U.seededRng(s.rng + s.progress.day * 10000 + s.progress.actionsThisTurn + 999);
+    const isCrit = critRng() < critChance;
+    if (isCrit) {
+      effects = effects.map(e => ({...e, v: Math.round(e.v * CONFIG.CRIT_MULTIPLIER)}));
+      s.stats.crits += 1;
+    }
+    const diff = CONFIG.DIFFICULTY[s.meta.difficulty];
+    effects.forEach(e => {
+      let v = e.v;
+      if (e.t.endsWith('joy') && v > 0) v = Math.round(v * diff.joyMult);
+      if (e.t.endsWith('stress') && v > 0) v = Math.round(v * diff.stressMult);
+      if (e.t === 'bond') {
+        s.bond = U.clamp(s.bond + v, 0, 100);
+        if (s._dayDelta) s._dayDelta.bond += v;
+      } else {
+        const [who, stat] = e.t.split('.');
+        if (s.players[who]) {
+          s.players[who][stat] = (s.players[who][stat] || 0) + v;
+          if (s._dayDelta?.[who]?.[stat] !== undefined) s._dayDelta[who][stat] += v;
+        }
+      }
+    });
+    if (baseCard.grants) {
+      baseCard.grants.forEach(g => {
+        if (!s.players[g.who].buffs.includes(g.buff)) s.players[g.who].buffs.push(g.buff);
+      });
+    }
+    let masteryGain = 10 + Math.floor(baseCard.cost * 3);
+    s.relics.forEach(rId => {
+      const r = Relics.get(rId);
+      if (r?.hooks.onMasteryCalc) masteryGain = r.hooks.onMasteryCalc(masteryGain);
+    });
+    instance.mastery += masteryGain;
+    instance.timesPlayed += 1;
+    const oldLevel = instance.level;
+    if (instance.level < 2 && instance.mastery >= 30) instance.level = 2;
+    if (instance.level < 3 && instance.mastery >= 80) instance.level = 3;
+    const leveled = instance.level !== oldLevel;
+    s.deck.hand.splice(cardIdx, 1);
+    s.deck.discard.push(instance);
+    s.stats.totalCardsPlayed += 1;
+    s.stats.cardUsage[instance.cardId] = (s.stats.cardUsage[instance.cardId] || 0) + 1;
+    s.progress.actionsThisTurn += 1;
+    s.progress.cardsPlayedToday += 1;
+    if (!s.unlocks.seenCards.includes(instance.cardId)) s.unlocks.seenCards.push(instance.cardId);
+    if (s._dayDelta) s._dayDelta.cardsPlayed.push({ id: instance.cardId, name: baseCard.name, art: baseCard.art, isCrit });
+    s._lastPlay = { instanceId, baseCard, effects, synActive, leveled, cost, isCrit, newLevel: instance.level };
+    return s;
+  },
+  checkReqs(state, card) {
+    if (!card.reqs) return true;
+    return card.reqs.every(r => {
+      const [who, stat] = r.t.split('.');
+      let val;
+      if (who === 'bond') val = state.bond;
+      else val = state.players[who]?.[stat] ?? 0;
+      if (r.op === '<') return val < r.v;
+      if (r.op === '>') return val > r.v;
+      if (r.op === '<=') return val <= r.v;
+      if (r.op === '>=') return val >= r.v;
+      if (r.op === '==') return val === r.v;
+      return true;
+    });
+  },
+  resolveEvent(state, choiceIdx) {
+    const s = U.deepClone(state);
+    const event = s.progress.currentEvent;
+    if (!event) return state;
+    const choice = event.choices[choiceIdx];
+    if (!choice) return state;
+    const diff = CONFIG.DIFFICULTY[s.meta.difficulty];
+    choice.fx.forEach(raw => {
+      let e = {...raw};
+      let v = e.v;
+      if (e.t.endsWith('joy') && v > 0) v = Math.round(v * diff.joyMult);
+      if (e.t.endsWith('stress') && v > 0) v = Math.round(v * diff.stressMult);
+      if (e.t === 'bond') {
+        s.bond = U.clamp(s.bond + v, 0, 100);
+        if (s._dayDelta) s._dayDelta.bond += v;
+      } else {
+        const [who, stat] = e.t.split('.');
+        if (s.players[who]) {
+          s.players[who][stat] = (s.players[who][stat] || 0) + v;
+          if (s._dayDelta?.[who]?.[stat] !== undefined) s._dayDelta[who][stat] += v;
+        }
+      }
+    });
+    if (choice.timeCost) {
+      s.players.aaron.time = Math.max(0, s.players.aaron.time - (choice.timeCost.a || 0));
+      s.players.jason.time = Math.max(0, s.players.jason.time - (choice.timeCost.j || 0));
+    }
+    if (choice.gold) { s.gold += choice.gold; if (s._dayDelta) s._dayDelta.gold += choice.gold; }
+    s.stats.eventsResolved += 1;
+    if (event.isBoss) s.stats.bossDaysCleared += 1;
+    s.progress.phase = 'evening';
+    s.progress.currentEvent = null;
+    s._lastEvent = { event, choice };
+    return s;
+  },
+  passTurn(state) {
+    const s = U.deepClone(state);
+    s.deck.discard.push(...s.deck.hand);
+    s.deck.hand = [];
+    s.progress.phase = 'night';
+    return s;
+  },
+  endDay(state) {
+    const s = U.deepClone(state);
+    const dayType = s.progress.dayType;
+    if (dayType) {
+      s.players.aaron.joy += dayType.joyMod || 0;
+      s.players.jason.joy += dayType.joyMod || 0;
+      s.players.aaron.stress += dayType.stressMod || 0;
+      s.players.jason.stress += dayType.stressMod || 0;
+    }
+    if (s.players.aaron.stress >= 80) s.players.aaron.joy -= 15;
+    if (s.players.jason.stress >= 80) s.players.jason.joy -= 15;
+    s.players.aaron.stress = Math.max(0, s.players.aaron.stress - 8);
+    s.players.jason.stress = Math.max(0, s.players.jason.stress - 8);
+    s.players.aaron.joy = Math.max(0, s.players.aaron.joy - 3);
+    s.players.jason.joy = Math.max(0, s.players.jason.joy - 3);
+    s.bond = Math.max(0, s.bond - 2);
+    if (s._dayDelta) s._dayDelta.bond -= 2;
+    s.relics.forEach(rId => {
+      const r = Relics.get(rId);
+      if (r?.hooks.onDayEnd) r.hooks.onDayEnd(s);
+    });
+    const goodDay = s.players.aaron.joy > 40 && s.players.jason.joy > 40;
+    if (goodDay) s.progress.streak += 1;
+    else s.progress.streak = 0;
+    if (s.progress.streak >= CONFIG.STREAK_GOLD_THRESHOLD) {
+      s.gold += 1;
+      if (s._dayDelta) s._dayDelta.gold += 1;
+    }
+    s.stats.daysPlayed += 1;
+    s.stats.maxJoy = Math.max(s.stats.maxJoy, s.players.aaron.joy, s.players.jason.joy);
+    s.stats.minStress = Math.min(s.stats.minStress, s.players.aaron.stress, s.players.jason.stress);
+    s.gold += 3;
+    if (s._dayDelta) s._dayDelta.gold += 3;
+    s.progress.day += 1;
+    s.progress.phase = 'ended';
+    return s;
+  },
+  draftRelic(state, relicId) {
+    const s = U.deepClone(state);
+    if (!s.relics.includes(relicId)) s.relics.push(relicId);
+    return s;
+  },
+  shopAddCard(state, cardId) {
+    const s = U.deepClone(state);
+    const price = Cards.price(cardId);
+    if (s.gold < price) return state;
+    s.gold -= price;
+    s.deck.draw.push({ instanceId: U.uid(), cardId, mastery: 0, level: 1, timesPlayed: 0 });
+    if (!s.unlocks.seenCards.includes(cardId)) s.unlocks.seenCards.push(cardId);
+    return s;
+  },
+  shopRemoveCard(state, instanceId) {
+    const s = U.deepClone(state);
+    const price = 8;
+    if (s.gold < price) return state;
+    for (const pool of ['draw', 'discard']) {
+      const idx = s.deck[pool].findIndex(c => c.instanceId === instanceId);
+      if (idx !== -1) {
+        s.deck.removed.push(s.deck[pool].splice(idx, 1)[0]);
+        s.gold -= price;
+        return s;
+      }
+    }
+    return state;
+  },
+  shopBuyRelic(state, relicId) {
+    const s = U.deepClone(state);
+    const price = 15;
+    if (s.gold < price || s.relics.includes(relicId)) return state;
+    s.gold -= price;
+    s.relics.push(relicId);
+    return s;
+  },
+  shopUpgradeCard(state, instanceId) {
+    const s = U.deepClone(state);
+    const price = 12;
+    if (s.gold < price) return state;
+    for (const pool of ['draw', 'discard']) {
+      const inst = s.deck[pool].find(c => c.instanceId === instanceId);
+      if (inst && inst.level < 3) {
+        s.gold -= price;
+        inst.level += 1;
+        inst.mastery = inst.level === 2 ? 30 : 80;
+        return s;
+      }
+    }
+    return state;
+  },
+  enforceBounds(state) {
+    const s = U.deepClone(state);
+    const clamp = (v) => U.clamp(v, 0, 100);
+    if (s.players) {
+      ['aaron','jason'].forEach(p => {
+        s.players[p].joy = clamp(s.players[p].joy);
+        s.players[p].stress = clamp(s.players[p].stress);
+        s.players[p].career = clamp(s.players[p].career);
+        s.players[p].time = U.clamp(s.players[p].time, 0, s.players[p].timeMax || 99);
+      });
+    }
+    if (typeof s.bond === 'number') s.bond = clamp(s.bond);
+    if (typeof s.gold === 'number') s.gold = Math.max(0, s.gold);
+    return s;
+  }
+};
+
+// ======================== UI ========================
+const UI = {
+  els: {},
+  cache() {
+    this.els = {
+      dayNum: document.getElementById('day-num'),
+      weekNum: document.getElementById('week-num'),
+      phasePill: document.getElementById('phase-pill'),
+      dayType: document.getElementById('day-type'),
+      streakPill: document.getElementById('streak-pill'),
+      banner: document.getElementById('banner'),
+      bannerTitle: document.getElementById('banner-title'),
+      bannerText: document.getElementById('banner-text'),
+      btnEnd: document.getElementById('btn-end-turn'),
+      hand: document.getElementById('hand'),
+      deckCount: document.getElementById('deck-count'),
+      handCount: document.getElementById('hand-count'),
+      discardCount: document.getElementById('discard-count'),
+      goldVal: document.getElementById('gold-val'),
+      relicsTray: document.getElementById('relics-tray'),
+      modalRoot: document.getElementById('modal-root'),
+      toastZone: document.getElementById('toast-zone'),
+      board: document.getElementById('board'),
+      nameA: document.getElementById('name-a'),
+      nameJ: document.getElementById('name-j'),
+      portraitA: document.getElementById('portrait-a'),
+      portraitJ: document.getElementById('portrait-j'),
+      bondFill: document.getElementById('bond-fill'),
+      bondLabel: document.getElementById('bond-label'),
+      bondPhase: document.getElementById('bond-phase'),
+      bondIcon: document.getElementById('bond-icon'),
+      timeline: document.getElementById('timeline')
+    };
+  },
+  updateAll(state) {
+    this.updateTopBar(state);
+    this.updatePlayer('aaron', state.players.aaron);
+    this.updatePlayer('jason', state.players.jason);
+    this.updateCrystals('a', state.players.aaron);
+    this.updateCrystals('j', state.players.jason);
+    this.updateBuffs('a', state.players.aaron.buffs);
+    this.updateBuffs('j', state.players.jason.buffs);
+    this.updateDeckInfo(state);
+    this.updateRelics(state.relics);
+    this.updateGold(state.gold);
+    this.updatePhase(state.progress.phase);
+    this.updateDayType(state.progress.dayType);
+    this.updateStreak(state.progress.streak);
+    this.updateNames(state.meta?.names);
+    this.updateBond(state.bond);
+    this.updateTimeline(state);
+  },
+  updateNames(names) {
+    if (!names) return;
+    this.els.nameA.textContent = names.aaron;
+    this.els.nameJ.textContent = names.jason;
+    this.els.portraitA.textContent = names.aaron.charAt(0).toUpperCase();
+    this.els.portraitJ.textContent = names.jason.charAt(0).toUpperCase();
+  },
+  updateTopBar(state) {
+    this.els.dayNum.textContent = Math.min(state.progress.day, 28);
+    this.els.weekNum.textContent = Math.ceil(Math.min(state.progress.day, 28) / 7);
+  },
+  updatePhase(phase) {
+    const labels = {
+      start: 'READY', morning: 'MORNING', event: 'EVENT',
+      evening: 'EVENING', night: 'NIGHT', ended: 'DAY END',
+      shop: 'SHOP', relic: 'RELIC'
+    };
+    this.els.phasePill.textContent = labels[phase] || phase.toUpperCase();
+  },
+  updateDayType(dt) {
+    if (dt) { this.els.dayType.textContent = dt.icon; this.els.dayType.title = dt.name; }
+    else this.els.dayType.textContent = '';
+  },
+  updateStreak(streak) {
+    this.els.streakPill.textContent = `🔥 ${streak}`;
+    this.els.streakPill.style.display = streak > 0 ? 'flex' : 'none';
+    if (streak >= CONFIG.STREAK_DRAW_THRESHOLD)
+      this.els.streakPill.title = `Streak ${streak}: +1 card draw & +1 gold/day`;
+    else if (streak >= CONFIG.STREAK_GOLD_THRESHOLD)
+      this.els.streakPill.title = `Streak ${streak}: +1 gold/day (5 for +1 draw)`;
+    else
+      this.els.streakPill.title = `Streak ${streak} (3+ for gold bonus)`;
+  },
+  updatePlayer(who, p) {
+    const prefix = who === 'aaron' ? 'a' : 'j';
+    ['joy','stress','career'].forEach(stat => {
+      const valEl = document.getElementById(`${prefix}-${stat}`);
+      const fillEl = document.getElementById(`${prefix}-${stat}-fill`);
+      const pillEl = document.getElementById(`${prefix}-${stat}-pill`);
+      if (!valEl || !fillEl) return;
+      const oldVal = parseInt(valEl.textContent) || 0;
+      const newVal = Math.round(p[stat]);
+      valEl.textContent = newVal;
+      fillEl.style.width = newVal + '%';
+      if (stat === 'stress') {
+        pillEl.classList.toggle('danger', newVal >= 70);
+      }
+      if (oldVal !== newVal && pillEl) {
+        const isPositive = (stat === 'stress') ? (newVal < oldVal) : (newVal > oldVal);
+        this.floatText(pillEl, newVal > oldVal ? `+${newVal - oldVal}` : `${newVal - oldVal}`, isPositive ? '#4ade80' : '#f87171');
+      }
+    });
+    const portraitEl = document.getElementById(`portrait-${prefix}`);
+    if (portraitEl) portraitEl.classList.toggle('stressed', p.stress >= 70);
+  },
+  updateCrystals(prefix, p) {
+    const el = document.getElementById(`${prefix}-crystals`);
+    el.innerHTML = '';
+    const max = Math.max(p.timeMax, p.time);
+    for (let i = 0; i < max; i++) {
+      const c = document.createElement('div');
+      c.className = 'crystal' + (i < p.time ? ' full' : '');
+      el.appendChild(c);
+    }
+  },
+  updateBuffs(prefix, buffs) {
+    const el = document.getElementById(`${prefix}-buffs`);
+    el.innerHTML = '';
+    const icons = { focused: '🎯', stressed: '🔥', inspired: '💡', exhausted: '💤' };
+    const tips = {
+      focused: 'Focused: Study synergy active',
+      stressed: 'Stressed: Increased stress gain',
+      inspired: 'Inspired: Rogue cards cost -1',
+      exhausted: 'Exhausted: Heavy stress'
+    };
+    buffs.forEach(b => {
+      const div = document.createElement('div');
+      div.className = 'buff';
+      div.textContent = icons[b] || '?';
+      div.setAttribute('data-tip', tips[b] || b);
+      el.appendChild(div);
+    });
+  },
+  updateDeckInfo(state) {
+    this.els.deckCount.textContent = state.deck.draw.length;
+    this.els.handCount.textContent = state.deck.hand.length;
+    this.els.discardCount.textContent = state.deck.discard.length;
+  },
+  updateGold(gold) { this.els.goldVal.textContent = gold; },
+  updateRelics(relics) {
+    this.els.relicsTray.innerHTML = '';
+    relics.forEach(rId => {
+      const r = Relics.get(rId);
+      if (!r) return;
+      const div = document.createElement('div');
+      div.className = 'relic';
+      div.textContent = r.art;
+      div.setAttribute('data-tip', `${r.name}: ${r.desc}`);
+      this.els.relicsTray.appendChild(div);
+    });
+  },
+  updateBond(bond) {
+    const val = Math.round(bond);
+    this.els.bondFill.style.width = val + '%';
+    const phase = CONFIG.BOND_PHASES.find(p => val <= p.max) || CONFIG.BOND_PHASES[CONFIG.BOND_PHASES.length - 1];
+    this.els.bondLabel.textContent = `${phase.icon} ${val} / 100`;
+    this.els.bondLabel.style.color = phase.color;
+    this.els.bondPhase.textContent = phase.name;
+    this.els.bondPhase.style.color = phase.color;
+    this.els.bondIcon.textContent = phase.icon;
+    this.els.bondIcon.style.color = phase.color;
+  },
+  updateTimeline(state) {
+    if (!this.els.timeline) return;
+    this.els.timeline.innerHTML = '';
+    const currentDay = Math.min(state.progress.day, 28);
+    for (let d = 1; d <= 28; d++) {
+      const day = document.createElement('div');
+      day.className = 'timeline-day';
+      if (d < currentDay) day.classList.add('done');
+      if (d === currentDay) day.classList.add('current');
+      if (CONFIG.BOSS_DAYS.includes(d)) day.classList.add('boss');
+      else if (CONFIG.RELIC_DAYS.includes(d)) day.classList.add('relic');
+      else if (CONFIG.SHOP_DAYS.includes(d)) day.classList.add('shop');
+      day.title = `Day ${d}${CONFIG.BOSS_DAYS.includes(d) ? ' (Boss)' : ''}${CONFIG.SHOP_DAYS.includes(d) ? ' (Shop)' : ''}${CONFIG.RELIC_DAYS.includes(d) ? ' (Relic)' : ''}`;
+      this.els.timeline.appendChild(day);
+    }
+  },
+  setBanner(title, text, isBoss = false) {
+    this.els.bannerTitle.textContent = title;
+    this.els.bannerText.textContent = text;
+    this.els.banner.classList.toggle('boss', isBoss);
+  },
+  setEndBtn(text, enabled = true, handler = null) {
+    this.els.btnEnd.textContent = text;
+    this.els.btnEnd.disabled = !enabled;
+    if (handler) this.els.btnEnd.onclick = handler;
+  },
+  renderHand(state, onPlay) {
+    this.els.hand.innerHTML = '';
+    const cards = state.deck.hand;
+    const total = cards.length;
+    if (total === 0) return;
+    cards.forEach((instance, i) => {
+      const base = Cards.get(instance.cardId);
+      if (!base) return;
+      const el = this.buildCardEl(base, instance, i, total, state, onPlay);
+      this.els.hand.appendChild(el);
+    });
+  },
+  buildCardEl(base, instance, idx, total, state, onPlay) {
+    const el = document.createElement('div');
+    el.className = `card type-${base.type} rar-${base.rarity || 'common'} level-${instance.level} drawing`;
+    el.dataset.instanceId = instance.instanceId;
+    const fanAngle = Math.min(10, 40 / total);
+    const startAngle = -((total - 1) * fanAngle) / 2;
+    const rot = startAngle + (idx * fanAngle);
+    const yOff = Math.pow(Math.abs(idx - (total - 1) / 2), 1.5) * 3;
+    const xOff = (idx - (total - 1) / 2) * 92;
+    el.style.transform = `translateX(${xOff}px) rotate(${rot}deg) translateY(${yOff}px)`;
+    el.style.zIndex = idx + 1;
+    el.style.animationDelay = `${idx * 0.08}s`;
+    let cost = base.cost;
+    state.relics.forEach(rId => {
+      const r = Relics.get(rId);
+      if (r?.hooks.onCostCalc) cost = r.hooks.onCostCalc({...base, level: instance.level}, cost, state);
+    });
+    cost = Math.max(0, cost);
+    const playable = App.canPlayCard(base, cost, state);
+    if (!playable) el.classList.add('unplayable');
+    let synActive = false;
+    if (base.synergy) {
+      const [who, buff] = base.synergy.cond.split('.');
+      synActive = state.players[who]?.buffs.includes(buff) || false;
+      if (synActive) el.classList.add('synergy-active');
+    }
+    const stars = '★'.repeat(instance.level) + '☆'.repeat(3 - instance.level);
+    const masteryPct = instance.level >= 3 ? 100 : instance.level === 2 ? Math.min(100, ((instance.mastery - 30) / 50) * 100) : Math.min(100, (instance.mastery / 30) * 100);
+    let fxLines = [...base.effects];
+    if (instance.level >= 2 && base.mastery) {
+      const l2 = base.mastery.find(m => m.level === 2);
+      if (l2) fxLines = fxLines.concat(l2.bonus.map(b => ({...b, _bonus: true})));
+    }
+    if (instance.level >= 3 && base.mastery) {
+      const l3 = base.mastery.find(m => m.level === 3);
+      if (l3) fxLines = fxLines.concat(l3.bonus.map(b => ({...b, _bonus: true})));
+    }
+    const displayName = U.tpl(base.name, state.meta?.names);
+    const displayDesc = U.tpl(base.desc, state.meta?.names);
+    const target = Cards.targetOf(base);
+    let targetBadge = '';
+    if (target === 'aaron') targetBadge = `<span class="card-target-badge a">${(state.meta?.names?.aaron || 'A').charAt(0)}</span>`;
+    else if (target === 'jason') targetBadge = `<span class="card-target-badge j">${(state.meta?.names?.jason || 'J').charAt(0)}</span>`;
+    else if (target === 'both') targetBadge = `<span class="card-target-badge both">👥</span>`;
+    else if (target === 'bond') targetBadge = `<span class="card-target-badge both">🤝</span>`;
+    el.innerHTML = `
+      <div class="card-cost">${cost}</div>
+      <div class="card-art">
+        <div class="card-targets">${targetBadge}</div>
+        ${base.art}
+        <div class="card-rarity rar-${base.rarity || 'common'}"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">${displayName}</div>
+        <div class="card-desc">${displayDesc}</div>
+        <div class="card-meta">
+          ${base.reqs?.length ? `<span class="card-req">Req</span>` : '<span></span>'}
+          ${synActive ? '<span class="card-syn">✦ SYN</span>' : '<span></span>'}
+          <span class="mastery-stars">${stars}</span>
+        </div>
+      </div>
+      <div class="card-tooltip">
+        <b>${displayName}</b> · Cost ${cost}💎<br>
+        ${fxLines.map(e => `<div class="fx-line">${e._bonus ? '✦ ' : ''}${this.formatEffect(e, state.meta?.names)}</div>`).join('')}
+        ${base.reqs?.length ? base.reqs.map(r => `<div class="req-line">Req: ${this.formatReq(r, state)}</div>`).join('') : ''}
+        ${base.synergy ? `<div class="fx-line" style="color:#a78bfa">Syn: ${this.formatSynergy(base.synergy, state)}</div>` : ''}
+        <div style="margin-top:6px;color:#8b8094">Mastery: ${Math.round(masteryPct)}% · Played ${instance.timesPlayed}×</div>
+      </div>
+    `;
+    if (playable && onPlay) el.onclick = () => onPlay(instance.instanceId, el);
+    el.addEventListener('mouseenter', () => {
+      if (el.classList.contains('locked') || el.classList.contains('unplayable')) return;
+      el.style.transition = 'transform 0.22s cubic-bezier(0.22,1,0.36,1),box-shadow 0.22s cubic-bezier(0.22,1,0.36,1),border-color 0.2s,filter 0.2s';
+      el.style.transform = `translateX(${xOff}px) rotate(${rot}deg) translateY(${yOff - 50}px) scale(1.2)`;
+      el.style.zIndex = '50';
+    });
+    el.addEventListener('mouseleave', () => {
+      el.style.transition = '';
+      el.style.transform = `translateX(${xOff}px) rotate(${rot}deg) translateY(${yOff}px)`;
+      el.style.zIndex = String(idx + 1);
+    });
+    return el;
+  },
+  formatEffect(e, names) {
+    const sign = e.v > 0 ? '+' : '';
+    const [who, stat] = e.t.split('.');
+    const aName = names?.aaron || CONFIG.DEFAULT_NAMES.aaron;
+    const jName = names?.jason || CONFIG.DEFAULT_NAMES.jason;
+    let whoLabel;
+    if (who === 'aaron') whoLabel = aName;
+    else if (who === 'jason') whoLabel = jName;
+    else whoLabel = 'Bond';
+    const statLabel = stat || who;
+    return `${whoLabel} ${sign}${e.v} ${statLabel}`;
+  },
+  formatSynergy(syn, state) {
+    const [who, buff] = syn.cond.split('.');
+    const name = who === 'aaron' ? (state.meta?.names?.aaron || 'Aaron') : (state.meta?.names?.jason || 'Jason');
+    return `If ${name} is ${buff}: ${syn.bonus.map(e => this.formatEffect(e, state.meta?.names)).join(', ')}`;
+  },
+  formatReq(r, state) {
+    const [who, stat] = r.t.split('.');
+    const aName = state.meta?.names?.aaron || CONFIG.DEFAULT_NAMES.aaron;
+    const jName = state.meta?.names?.jason || CONFIG.DEFAULT_NAMES.jason;
+    let whoLabel;
+    if (who === 'bond') whoLabel = 'Bond';
+    else if (who === 'aaron') whoLabel = aName;
+    else whoLabel = jName;
+    const val = who === 'bond' ? state.bond : state.players[who]?.[stat] ?? 0;
+    const met = GameReducer.checkReqs(state, { reqs: [r] });
+    return `<span style="color:${met ? '#4ade80' : '#f87171'}">${whoLabel} ${stat} ${r.op} ${r.v} (${Math.round(val)})</span>`;
+  },
+  lockHand() { this.els.hand.querySelectorAll('.card').forEach(c => c.classList.add('locked')); },
+  unlockHand() { this.els.hand.querySelectorAll('.card').forEach(c => c.classList.remove('locked')); },
+  floatText(parentEl, text, color, isCrit = false) {
+    const el = document.createElement('div');
+    el.className = 'float-text' + (isCrit ? ' crit' : '');
+    el.textContent = text;
+    el.style.color = color;
+    el.style.left = '50%';
+    el.style.top = '0';
+    el.style.transform = 'translateX(-50%)';
+    parentEl.style.position = 'relative';
+    parentEl.appendChild(el);
+    setTimeout(() => el.remove(), 1400);
+  },
+  toast(title, body, icon = '✨', isCrit = false, extraClass = '') {
+    const el = document.createElement('div');
+    el.className = 'toast' + (isCrit ? ' crit' : '') + (extraClass ? ' ' + extraClass : '');
+    el.innerHTML = `<div class="toast-title">${icon} ${title}</div><div class="toast-body">${body}</div>`;
+    this.els.toastZone.appendChild(el);
+    setTimeout(() => el.remove(), 3500);
+  },
+  shake() {
+    if (!App.settings.shake) return;
+    this.els.board.classList.add('shake');
+    setTimeout(() => this.els.board.classList.remove('shake'), 300);
+  },
+  critFlash() {
+    if (!App.settings.particles) return;
+    const flash = document.createElement('div');
+    flash.className = 'crit-flash';
+    document.body.appendChild(flash);
+    setTimeout(() => flash.remove(), 500);
+  },
+  showModal(html) {
+    const wrap = document.createElement('div');
+    wrap.className = 'modal-backdrop';
+    wrap.innerHTML = `<div class="modal">${html}</div>`;
+    this.els.modalRoot.appendChild(wrap);
+    return wrap;
+  },
+  closeModal(el) { if (!el) this.els.modalRoot.innerHTML = ''; else el.remove(); },
+  closeDrawer(which) { document.getElementById(`drawer-${which}`)?.classList.remove('open'); },
+  openDrawer(which) { document.getElementById(`drawer-${which}`)?.classList.add('open'); }
+};
+
+// ======================== TUTORIAL ENGINE ========================
+const Tutorial = {
+  steps: [
+    {
+      title: 'Welcome to Senior Year',
+      body: `You'll guide two best friends through <b>28 days</b> of their final year. Balance their <b>Joy</b>, <b>Stress</b>, <b>Career</b>, and <b>Bond</b> to reach graduation.`,
+      tip: 'Think of it as a roguelike deck-builder where the "dungeon" is real life.',
+      visual: `<span class="highlight">Goal:</span> Survive 28 days → Graduate with the best ending (F to S+)`
+    },
+    {
+      title: 'Your Two Characters',
+      body: `<b>Player A</b> (blue) loves roguelikes — chill, steady cards.<br><b>Player B</b> (red) loves asymmetric esports — high-risk, high-reward.<br>Each has their own stats. If <i>either</i> hits 0 Joy, you burn out.`,
+      tip: 'You can rename them. Their personality affects card preferences, not stats.',
+      visual: `<span class="highlight">A</span>: 😊 Joy · 🔥 Stress · 💼 Career<br><span class="highlight">B</span>: 😊 Joy · 🔥 Stress · 💼 Career`
+    },
+    {
+      title: 'The Day Loop',
+      body: `Each day has 4 phases:<br>① <b>Morning</b> — Draw 5 cards, mulligan up to 2<br>② <b>Event</b> — A story choice (costs time crystals)<br>③ <b>Evening</b> — Play cards from your hand<br>④ <b>Night</b> — Stats decay, streak updates`,
+      tip: 'You always have 3 Time Crystals 💎 per day (4 on Casual, 2 on Nightmare).',
+      visual: `☀️ Morning → 📖 Event → 🌆 Evening → 🌙 Night`
+    },
+    {
+      title: 'Cards & Crystals',
+      body: `Each card costs 💎 <b>Time Crystals</b>. Cards in the top-left corner show cost. The colored icon shows who it affects:<br>• <b style="color:#60a5fa">A</b> = Aaron only<br>• <b style="color:#f87171">J</b> = Jason only<br>• <b style="color:#c026d3">👥</b> = Both`,
+      tip: 'Cards gain Mastery XP each play. Level 2 at 30 XP, Level 3 at 80 XP — stronger effects!',
+      visual: `<span class="highlight">⚔️ Quick Run</span> [Cost 1💎]<br>→ <span class="pos">+15 Joy</span> · <span class="neg">+5 Stress</span>`
+    },
+    {
+      title: 'Events Have Consequences',
+      body: `Every morning, a story event offers 2-4 choices. Each has <b>stat effects</b> and may cost <b>time crystals</b>. Green numbers = good, red = bad. Read carefully — one bad choice can spiral.`,
+      tip: 'Some events give Gold 🪙. Save it for the Shop.',
+      visual: `<span class="highlight">Pop Quiz!</span><br>• Cram together: <span class="neg">+12 stress</span> · <span class="pos">+8 career</span> · -1💎 each<br>• Skip class: <span class="pos">+8 joy</span> · <span class="neg">-8 career</span>`
+    },
+    {
+      title: 'Bond & Streak',
+      body: `The pink <b>Bond meter</b> between the players decays by 2 every night. Keep it high — powerful cards like "Perfect Sync" need Bond > 50. End days with both Joy > 40 to build a <b>🔥 Momentum Streak</b> for bonus gold and card draws.`,
+      tip: 'Bond phases: Fractured → Strained → Warm → Close → Unbreakable.',
+      visual: `🤝 Bond: 55/100 (Warm)<br>🔥 Streak 3+ → +1🪙/day · 5+ → +1 card/day`
+    },
+    {
+      title: 'Shops, Relics & Boss Days',
+      body: `Every <b>3 days</b> a Shop opens: buy cards, remove weak ones, upgrade. Every <b>7 days</b> draft a free <b>Relic</b> (permanent passive). Days <b>7, 14, 21, 28</b> are 👹 <b>Boss Days</b> — high stakes, high rewards.`,
+      tip: 'Day 28 is Graduation. Your final stats determine your grade (F to S+).',
+      visual: `🛒 Shop: Day 3, 6, 9...<br>🏺 Relic: Day 7, 14, 21<br>👹 Boss: Day 7, 14, 21, 28`
+    }
+  ],
+  current: 0,
+  active: false,
+
+  start() {
+    this.current = 0;
+    this.active = true;
+    this.render();
+  },
+
+  render() {
+    const step = this.steps[this.current];
+    const isLast = this.current === this.steps.length - 1;
+    const html = `
+      <div class="tutorial-progress">
+        ${this.steps.map((_, i) => `<div class="tutorial-dot ${i < this.current ? 'done' : ''} ${i === this.current ? 'current' : ''}"></div>`).join('')}
+      </div>
+      <div class="tutorial-step">
+        <div class="tutorial-step-num">STEP ${this.current + 1} / ${this.steps.length}</div>
+        <h3>${step.title}</h3>
+        <p>${step.body}</p>
+        ${step.visual ? `<div class="tutorial-visual">${step.visual}</div>` : ''}
+        ${step.tip ? `<div class="tutorial-tip">💡 <b>Pro tip:</b> ${step.tip}</div>` : ''}
+      </div>
+      <div class="btn-row">
+        <button class="ghost-btn" id="tut-skip">Skip Tutorial</button>
+        ${this.current > 0 ? `<button class="secondary-btn" id="tut-back">← Back</button>` : ''}
+        <button class="primary-btn" id="tut-next">${isLast ? '✓ Start Playing' : 'Next →'}</button>
+      </div>
+    `;
+    if (this.modal) UI.closeModal(this.modal);
+    this.modal = UI.showModal(html);
+    this.bind();
+  },
+
+  bind() {
+    this.modal.querySelector('#tut-skip').onclick = () => this.finish();
+    const backBtn = this.modal.querySelector('#tut-back');
+    if (backBtn) backBtn.onclick = () => { this.current--; this.render(); };
+    this.modal.querySelector('#tut-next').onclick = () => {
+      if (this.current < this.steps.length - 1) { this.current++; this.render(); }
+      else this.finish();
+    };
+  },
+
+  finish() {
+    this.active = false;
+    if (this.modal) UI.closeModal(this.modal);
+    const meta = Save.loadMeta();
+    meta.tutorialDone = true;
+    Save.saveMeta(meta);
+    Events.emit('tutorial:complete');
+  }
+};
+
+// ======================== APP ========================
+const audio = new AudioEngine();
+let particles = null;
+
+const App = {
+  store: null,
+  state: null,
+  settings: { volume: 0.6, particles: true, shake: true, autoEnd: false },
+  achievementDebounce: new Set(),
+
+  init() {
+    audio.init();
+    particles = new ParticleSystem(document.getElementById('particle-canvas'));
+    UI.cache();
+    this.settings = Save.loadSettings();
+    audio.setVolume(this.settings.volume);
+    particles.enabled = this.settings.particles;
+    this.store = new Store({
+      meta: null, progress: null, players: null, bond: 0, gold: 0,
+      deck: { draw: [], hand: [], discard: [], removed: [] },
+      relics: [], unlocks: { achievements: [], seenCards: [] },
+      stats: null, rng: 0, settings: this.settings, _dayDelta: null
+    });
+    this.store.subscribe((s) => {
+      this.state = s;
+      UI.updateAll(s);
+      this.checkAchievements();
+    });
+    this.bindEvents();
+    Events.on('tutorial:complete', () => {
+      // Tutorial done, continue to start screen or run
+    });
+    const saved = Save.load();
+    this.showStartScreen(saved);
+  },
+
+  bindEvents() {
+    UI.els.btnEnd.onclick = () => this.onEndTurn();
+    document.getElementById('btn-rules').onclick = () => UI.openDrawer('rules');
+    document.getElementById('btn-stats').onclick = () => { this.updateStatsDrawer(); UI.openDrawer('stats'); };
+    document.getElementById('btn-settings').onclick = () => { this.renderSettings(); UI.openDrawer('settings'); };
+    document.getElementById('btn-deck').onclick = () => { this.renderDeckCodex(); UI.openDrawer('deck'); };
+    document.getElementById('deck-count-btn').onclick = () => { this.renderDeckCodex(); UI.openDrawer('deck'); };
+    document.getElementById('btn-mute').onclick = (e) => {
+      const muted = audio.toggle();
+      e.currentTarget.textContent = muted ? '🔇' : '🔊';
+    };
+    document.getElementById('btn-undo').onclick = () => this.doUndo();
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT') return;
+      if (e.key === '?') { e.preventDefault(); UI.openDrawer('rules'); }
+      else if (e.key === 'm' || e.key === 'M') document.getElementById('btn-mute').click();
+      else if (e.key === 'u' || e.key === 'U') this.doUndo();
+      else if (e.key === 'd' || e.key === 'D') { this.renderDeckCodex(); UI.openDrawer('deck'); }
+      else if (e.key === ' ') { e.preventDefault(); this.onEndTurn(); }
+      else if (e.key >= '1' && e.key <= '7') {
+        const idx = parseInt(e.key) - 1;
+        const cards = UI.els.hand.querySelectorAll('.card:not(.unplayable):not(.locked)');
+        if (cards[idx]) cards[idx].click();
+      }
+      else if (e.key === 'Escape') document.querySelectorAll('.drawer.open').forEach(d => d.classList.remove('open'));
+    });
+  },
+
+  renderSettings() {
+    const vol = document.getElementById('volume-slider');
+    const pToggle = document.getElementById('toggle-particles');
+    const sToggle = document.getElementById('toggle-shake');
+    const aToggle = document.getElementById('toggle-autoend');
+    vol.value = this.settings.volume * 100;
+    pToggle.classList.toggle('on', this.settings.particles);
+    sToggle.classList.toggle('on', this.settings.shake);
+    aToggle.classList.toggle('on', this.settings.autoEnd);
+    vol.oninput = () => {
+      this.settings.volume = vol.value / 100;
+      audio.setVolume(this.settings.volume);
+      Save.saveSettings(this.settings);
+    };
+    pToggle.onclick = () => {
+      this.settings.particles = !this.settings.particles;
+      particles.enabled = this.settings.particles;
+      pToggle.classList.toggle('on', this.settings.particles);
+      Save.saveSettings(this.settings);
+    };
+    sToggle.onclick = () => {
+      this.settings.shake = !this.settings.shake;
+      sToggle.classList.toggle('on', this.settings.shake);
+      Save.saveSettings(this.settings);
+    };
+    aToggle.onclick = () => {
+      this.settings.autoEnd = !this.settings.autoEnd;
+      aToggle.classList.toggle('on', this.settings.autoEnd);
+      Save.saveSettings(this.settings);
+    };
+    document.getElementById('btn-replay-tutorial').onclick = () => {
+      UI.closeDrawer('settings');
+      Tutorial.start();
+    };
+    document.getElementById('btn-reset-all').onclick = () => {
+      if (confirm('Reset all progress, history, and settings? This cannot be undone.')) {
+        localStorage.removeItem(CONFIG.SAVE_KEY);
+        localStorage.removeItem(CONFIG.META_KEY);
+        localStorage.removeItem(CONFIG.SETTINGS_KEY);
+        location.reload();
+      }
+    };
+  },
+
+  renderDeckCodex(filter = 'all') {
+    const el = document.getElementById('deck-codex-content');
+    if (!this.state || !this.state.deck) {
+      el.innerHTML = '<p>Start a run to view your deck.</p>';
+      return;
+    }
+    const names = this.state.meta?.names;
+    const allCards = getAllCards(this.state);
+    const filters = [
+      { id: 'all', label: 'All' },
+      { id: 'rogue', label: '🎮 Rogue' },
+      { id: 'asy', label: '🕵️ Asy' },
+      { id: 'chill', label: '🌿 Chill' },
+      { id: 'life', label: '📚 Life' },
+      { id: 'special', label: '✨ Special' }
+    ];
+    const filtered = filter === 'all' ? allCards : allCards.filter(c => Cards.get(c.cardId)?.type === filter);
+    el.innerHTML = `
+      <div class="codex-filters">
+        ${filters.map(f => `<button class="codex-filter ${f.id === filter ? 'active' : ''}" data-filter="${f.id}">${f.label}</button>`).join('')}
+      </div>
+      <div style="font-size:0.75rem;color:var(--text-dim);margin-bottom:8px">${filtered.length} cards · Deck size: ${allCards.length}</div>
+      <div class="codex-grid">
+        ${filtered.map(inst => {
+          const c = Cards.get(inst.cardId);
+          if (!c) return '';
+          const masteryPct = inst.level >= 3 ? 100 : inst.level === 2 ? Math.min(100, ((inst.mastery - 30) / 50) * 100) : Math.min(100, (inst.mastery / 30) * 100);
+          return `<div class="codex-card level-${inst.level}">
+            <div class="codex-art">${c.art}</div>
+            <div class="codex-name">${U.tpl(c.name, names)}</div>
+            <div class="codex-meta">Lv${inst.level} · ${c.cost}💎 · ${c.rarity}</div>
+            <div class="codex-meta">${inst.timesPlayed}× played</div>
+            <div class="codex-mastery"><div class="codex-mastery-fill" style="width:${masteryPct}%"></div></div>
+          </div>`;
+        }).join('')}
+      </div>
+    `;
+    el.querySelectorAll('.codex-filter').forEach(btn => {
+      btn.onclick = () => this.renderDeckCodex(btn.dataset.filter);
+    });
+  },
+
+  showStartScreen(savedState) {
+    const meta = Save.loadMeta();
+    const defaultA = CONFIG.DEFAULT_NAMES.aaron;
+    const defaultJ = CONFIG.DEFAULT_NAMES.jason;
+    let diff = 'standard';
+    let nameA = savedState?.meta?.names?.aaron || '';
+    let nameJ = savedState?.meta?.names?.jason || '';
+    const historyHtml = (meta.history && meta.history.length > 0) ? `
+      <h2>Run History</h2>
+      <div class="history-list">
+        ${meta.history.slice(-10).reverse().map(h => `
+          <div class="history-row">
+            <div class="history-grade">${h.grade}</div>
+            <div class="history-names">
+              ${h.names.aaron} & ${h.names.jason}
+              <small>${h.difficulty} · Day ${h.day} · ${new Date(h.date).toLocaleDateString()}</small>
+            </div>
+            <div class="history-meta">${h.relics}🏺</div>
+            <div class="history-score">${Math.round(h.score)}</div>
+          </div>
+        `).join('')}
+      </div>
+    ` : '';
+    const html = `
+      <div class="start-screen">
+        <div class="start-logo">RESONANCE</div>
+        <div class="start-sub">Senior Year · Anniversary Edition</div>
+        <p>Guide two friends through 28 days of life, love, and gaming. Build your deck, draft relics, and survive graduation.</p>
+        <h2>Name Your Characters</h2>
+        <div class="char-custom">
+          <div class="char-field">
+            <div class="char-field-label">Player A · Roguelike</div>
+            <div class="char-field-preview rogue" id="preview-a">${(nameA || defaultA).charAt(0).toUpperCase()}</div>
+            <input type="text" class="char-input" id="name-input-a" maxlength="${CONFIG.NAME_MAX_LENGTH}" placeholder="${defaultA}" value="${nameA}">
+            <div class="char-hint">Default: ${defaultA}</div>
+          </div>
+          <div class="char-field">
+            <div class="char-field-label">Player B · Asymmetric</div>
+            <div class="char-field-preview asy" id="preview-j">${(nameJ || defaultJ).charAt(0).toUpperCase()}</div>
+            <input type="text" class="char-input" id="name-input-j" maxlength="${CONFIG.NAME_MAX_LENGTH}" placeholder="${defaultJ}" value="${nameJ}">
+            <div class="char-hint">Default: ${defaultJ}</div>
+          </div>
+        </div>
+        <h2>Choose Difficulty</h2>
+        <div class="difficulty-grid">
+          ${Object.entries(CONFIG.DIFFICULTY).map(([k,v]) => `
+            <button class="diff-btn ${k === diff ? 'selected' : ''}" data-diff="${k}">
+              <div class="diff-name">${v.name}</div>
+              <div class="diff-desc">${v.desc}</div>
+            </button>
+          `).join('')}
+        </div>
+        <div class="seed-row">
+          <label>Seed (optional):</label>
+          <input type="text" class="seed-input" id="seed-input" placeholder="random">
+        </div>
+        <div class="btn-row">
+          <button class="primary-btn" id="btn-new-run">NEW RUN</button>
+          ${savedState ? `<button class="secondary-btn" id="btn-continue">CONTINUE (Day ${savedState.progress.day})</button>` : ''}
+          ${meta.history?.length ? `<button class="danger-btn" id="btn-clear-history">CLEAR HISTORY</button>` : ''}
+        </div>
+        ${meta.totalRuns > 0 ? `<div class="meta-stats">
+          <span>Total Runs: <b>${meta.totalRuns}</b></span>
+          <span>Best Grade: <b>${meta.bestGrade || '-'}</b></span>
+        </div>` : ''}
+        ${!meta.tutorialDone ? `<div style="margin-top:16px;padding:12px;background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.3);border-radius:8px;font-size:0.82rem;color:var(--text)">
+          💡 <b>First time?</b> A short 7-step tutorial will guide you through the basics. You can skip it anytime.
+        </div>` : ''}
+        ${historyHtml}
+      </div>
+    `;
+    const modal = UI.showModal(html);
+    const updatePreview = () => {
+      const a = modal.querySelector('#name-input-a').value.trim() || defaultA;
+      const j = modal.querySelector('#name-input-j').value.trim() || defaultJ;
+      modal.querySelector('#preview-a').textContent = a.charAt(0).toUpperCase();
+      modal.querySelector('#preview-j').textContent = j.charAt(0).toUpperCase();
+    };
+    modal.querySelector('#name-input-a').oninput = updatePreview;
+    modal.querySelector('#name-input-j').oninput = updatePreview;
+    modal.querySelectorAll('.diff-btn').forEach(b => {
+      b.onclick = () => {
+        modal.querySelectorAll('.diff-btn').forEach(x => x.classList.remove('selected'));
+        b.classList.add('selected');
+        diff = b.dataset.diff;
+        audio.play('click');
+      };
+    });
+    modal.querySelector('#btn-new-run').onclick = () => {
+      const seedVal = modal.querySelector('#seed-input').value.trim();
+      const parsedSeed = seedVal ? (isNaN(seedVal) ? U.hashStr(seedVal) : parseInt(seedVal)) : Date.now();
+      const nA = modal.querySelector('#name-input-a').value;
+      const nJ = modal.querySelector('#name-input-j').value;
+      UI.closeModal(modal);
+      this.store.dispatch({
+        type: 'START_RUN', difficulty: diff, seed: parsedSeed,
+        names: { aaron: nA, jason: nJ }
+      });
+      audio.play('turn');
+      // Show tutorial for new players
+      const meta = Save.loadMeta();
+      if (!meta.tutorialDone) {
+        Tutorial.start();
+        const unsub = Events.on('tutorial:complete', () => {
+          this.startDay();
+          unsub();
+        });
+      } else {
+        this.startDay();
+      }
+      Save.clear();
+    };
+    if (savedState) {
+      modal.querySelector('#btn-continue').onclick = () => {
+        UI.closeModal(modal);
+        this.store.setState(savedState);
+        this.resumeFromState();
+      };
+    }
+    const clearBtn = modal.querySelector('#btn-clear-history');
+    if (clearBtn) {
+      clearBtn.onclick = () => {
+        if (confirm('Clear all run history?')) {
+          Save.saveMeta({ totalRuns: 0, history: [], bestGrade: null, tutorialDone: true });
+          UI.closeModal(modal);
+          this.showStartScreen(null);
+        }
+      };
+    }
+  },
+
+  resumeFromState() {
+    const s = this.state;
+    if (s.progress.phase === 'evening') this.enterEvening();
+    else if (s.progress.phase === 'event') this.showEventModal();
+    else if (s.progress.phase === 'morning') {
+      UI.setBanner(`Day ${s.progress.day} · Morning`, 'Continue your day.');
+      UI.setEndBtn('BEGIN EVENT', true, () => this.startEventPhase());
+      UI.renderHand(s, null);
+    }
+    else this.startDay();
+  },
+
+  startDay() {
+    this.store.dispatch({ type: 'START_DAY' });
+    this.store.dispatch({ type: 'DRAW_HAND' });
+    Save.save(this.state);
+    const day = this.state.progress.day;
+    const isBoss = CONFIG.BOSS_DAYS.includes(day);
+    const dt = this.state.progress.dayType;
+    UI.setBanner(
+      `Day ${day} · Morning${isBoss ? ' 👹' : ''}`,
+      `${dt ? dt.name + ': ' : ''}Draw your hand. Mulligan up to 2 cards.`,
+      isBoss
+    );
+    UI.setEndBtn('BEGIN DAY', true, () => this.startEventPhase());
+    this.showMulligan();
+  },
+
+  showMulligan() {
+    const hand = this.state.deck.hand;
+    const names = this.state.meta?.names;
+    let marked = new Set();
+    const html = `
+      <h1>Opening Hand</h1>
+      <p class="subtitle">Click cards to mark them for replacement (max 2). Or keep your hand.</p>
+      <div class="mulligan-hand" id="mull-hand">
+        ${hand.map(c => {
+          const base = Cards.get(c.cardId);
+          return `<div class="mulligan-card" data-id="${c.instanceId}">
+            <div class="mulligan-art">${base.art}</div>
+            <div class="mulligan-name">${U.tpl(base.name, names)}</div>
+            <div class="mulligan-cost">${base.cost}💎</div>
+          </div>`;
+        }).join('')}
+      </div>
+      <div class="btn-row">
+        <button class="primary-btn" id="btn-mulligan-keep">KEEP HAND</button>
+        <button class="secondary-btn" id="btn-mulligan-swap" disabled>SWAP SELECTED (0)</button>
+      </div>
+    `;
+    const modal = UI.showModal(html);
+    const updateSwapBtn = () => {
+      const btn = modal.querySelector('#btn-mulligan-swap');
+      btn.textContent = `SWAP SELECTED (${marked.size})`;
+      btn.disabled = marked.size === 0 || marked.size > 2;
+    };
+    modal.querySelectorAll('.mulligan-card').forEach(el => {
+      el.onclick = () => {
+        const id = el.dataset.id;
+        if (marked.has(id)) { marked.delete(id); el.classList.remove('marked'); }
+        else if (marked.size < 2) { marked.add(id); el.classList.add('marked'); audio.play('click'); }
+        updateSwapBtn();
+      };
+    });
+    modal.querySelector('#btn-mulligan-keep').onclick = () => {
+      UI.closeModal(modal);
+      audio.play('draw');
+      this.startEventPhase();
+    };
+    modal.querySelector('#btn-mulligan-swap').onclick = () => {
+      this.store.dispatch({ type: 'MULLIGAN', ids: Array.from(marked) });
+      UI.closeModal(modal);
+      audio.play('draw');
+      this.startEventPhase();
+    };
+  },
+
+  startEventPhase() {
+    this.store.dispatch({ type: 'GENERATE_EVENT' });
+    Save.save(this.state);
+    this.showEventModal();
+  },
+
+  showEventModal() {
+    const event = this.state.progress.currentEvent;
+    if (!event) { this.enterEvening(); return; }
+    const names = this.state.meta?.names;
+    const title = U.tpl(event.title, names);
+    const desc = U.tpl(event.desc, names);
+    const html = `
+      <h1>${title}</h1>
+      <p class="subtitle">${desc}</p>
+      ${event.isBoss ? `<div style="text-align:center;color:#fca5a5;font-weight:700;margin-bottom:10px">👹 BOSS DAY</div>` : ''}
+      <div class="choice-grid">
+        ${event.choices.map((c, i) => {
+          const choiceText = U.tpl(c.text, names);
+          return `
+            <button class="choice-card" data-idx="${i}">
+              <div class="choice-title">${choiceText}</div>
+              <div class="choice-fx">
+                ${c.fx.map(e => {
+                  const sign = e.v > 0 ? '+' : '';
+                  const [who, stat] = e.t.split('.');
+                  let whoLabel;
+                  if (who === 'bond') whoLabel = '🤝';
+                  else if (who === 'aaron') whoLabel = (names?.aaron || 'A').charAt(0);
+                  else whoLabel = (names?.jason || 'J').charAt(0);
+                  const cls = (stat === 'stress' && e.v > 0) || (stat === 'joy' && e.v < 0) || (stat === 'career' && e.v < 0) || (stat === 'bond' && e.v < 0) ? 'neg' : 'pos';
+                  return `<span class="${cls}">${whoLabel} ${sign}${e.v} ${stat || who}</span>`;
+                }).join(' · ')}
+                ${c.timeCost ? ` · <span class="neg">-${c.timeCost.a||0}A/-${c.timeCost.j||0}J 💎</span>` : ''}
+                ${c.gold ? ` · <span class="pos">+${c.gold}🪙</span>` : ''}
+              </div>
+            </button>
+          `;
+        }).join('')}
+      </div>
+    `;
+    const modal = UI.showModal(html);
+    if (event.isBoss) audio.play('boss');
+    modal.querySelectorAll('.choice-card').forEach(el => {
+      el.onclick = () => {
+        const idx = parseInt(el.dataset.idx);
+        this.store.dispatch({ type: 'RESOLVE_EVENT', choiceIdx: idx });
+        audio.play('card');
+        UI.closeModal(modal);
+        this.enterEvening();
+      };
+    });
+  },
+
+  enterEvening() {
+    const isBoss = CONFIG.BOSS_DAYS.includes(this.state.progress.day);
+    UI.setBanner(
+      `Day ${this.state.progress.day} · Evening`,
+      'Play cards from your hand. Each card costs Time Crystals.',
+      isBoss
+    );
+    UI.setEndBtn('END TURN', true, () => this.onEndTurn());
+    this.renderHand();
+    Save.save(this.state);
+  },
+
+  renderHand() {
+    UI.renderHand(this.state, (instanceId, el) => this.playCard(instanceId, el));
+  },
+
+  canPlayCard(base, cost, state) {
+    const target = Cards.targetOf(base);
+    if (target === 'both' || target === 'bond') {
+      if (state.players.aaron.time < cost || state.players.jason.time < cost) return false;
+    } else if (target === 'aaron') {
+      if (state.players.aaron.time < cost) return false;
+    } else if (target === 'jason') {
+      if (state.players.jason.time < cost) return false;
+    }
+    return GameReducer.checkReqs(state, base);
+  },
+
+  playCard(instanceId, cardEl) {
+    const prevState = this.state;
+    this.store.dispatch({ type: 'PLAY_CARD', instanceId });
+    const newState = this.state;
+    if (newState === prevState || !newState._lastPlay) {
+      audio.play('error');
+      return;
+    }
+    const { baseCard, synActive, leveled, cost, isCrit, newLevel } = newState._lastPlay;
+    cardEl.classList.add('playing');
+    audio.play(isCrit ? 'crit' : (leveled ? 'levelup' : 'card'));
+    const typeColor = baseCard.type === 'rogue' ? '#60a5fa' : baseCard.type === 'asy' ? '#f87171' : baseCard.type === 'chill' ? '#4ade80' : baseCard.type === 'life' ? '#c084fc' : '#fbbf24';
+    particles.burstAt(cardEl, isCrit ? '#fbbf24' : typeColor);
+    if (isCrit) {
+      UI.critFlash();
+      UI.toast('CRITICAL HIT!', `${U.tpl(baseCard.name, newState.meta?.names)} crits for 1.5×`, '💥', true);
+    }
+    if (baseCard.effects.some(e => e.t.endsWith('stress') && e.v > 20)) UI.shake();
+    if (synActive) UI.toast('Synergy!', `${U.tpl(baseCard.name, newState.meta?.names)} synergy triggered`, '✦');
+    if (leveled) UI.toast('Level Up!', `${U.tpl(baseCard.name, newState.meta?.names)} reached Lv${newLevel}`, '⭐');
+    setTimeout(() => {
+      this.renderHand();
+      UI.setBanner(`Played: ${U.tpl(baseCard.name, newState.meta?.names)}`, U.tpl(baseCard.desc, newState.meta?.names));
+      const anyPlayable = newState.deck.hand.some(inst => {
+        const b = Cards.get(inst.cardId);
+        let c = b.cost;
+        newState.relics.forEach(rId => {
+          const r = Relics.get(rId);
+          if (r?.hooks.onCostCalc) c = r.hooks.onCostCalc({...b, level: inst.level}, c, newState);
+        });
+        c = Math.max(0, c);
+        return this.canPlayCard(b, c, newState);
+      });
+      if (!anyPlayable && newState.deck.hand.length > 0) {
+        UI.setBanner(`No playable cards`, 'Remaining cards are locked. End your turn.');
+        if (this.settings.autoEnd) setTimeout(() => this.onEndTurn(), 800);
+      } else if (newState.deck.hand.length === 0) {
+        UI.setBanner(`Hand empty`, 'All cards played. End your turn.');
+        if (this.settings.autoEnd) setTimeout(() => this.onEndTurn(), 800);
+      }
+      Save.save(newState);
+    }, 500);
+  },
+
+  onEndTurn() {
+    if (!this.state || !this.state.progress) return;
+    const phase = this.state.progress.phase;
+    if (phase === 'start' || phase === 'morning') this.startDay();
+    else if (phase === 'evening') this.endDay();
+  },
+
+  endDay() {
+    const prevDay = this.state.progress.day;
+    const prevStats = {
+      aaron: {...this.state.players.aaron},
+      jason: {...this.state.players.jason},
+      bond: this.state.bond,
+      gold: this.state.gold
+    };
+    this.store.dispatch({ type: 'PASS_TURN' });
+    this.store.dispatch({ type: 'END_DAY' });
+    UI.els.hand.innerHTML = '';
+    audio.play('turn');
+    Save.save(this.state);
+    if (this.state.progress.streak === CONFIG.STREAK_GOLD_THRESHOLD)
+      UI.toast('Momentum!', 'Streak bonus: +1 gold/day', '🔥');
+    if (this.state.progress.streak === CONFIG.STREAK_DRAW_THRESHOLD)
+      UI.toast('On Fire!', 'Streak bonus: +1 card draw/day', '🔥');
+    const endCheck = this.checkEndConditions();
+    if (endCheck) {
+      setTimeout(() => this.showEndScreen(endCheck), 600);
+      return;
+    }
+    // Show day summary
+    this.showDaySummary(prevDay, prevStats);
+  },
+
+  showDaySummary(day, prevStats) {
+    const s = this.state;
+    const names = s.meta?.names;
+    const delta = s._dayDelta || { aaron:{joy:0,stress:0,career:0}, jason:{joy:0,stress:0,career:0}, bond:0, gold:0, cardsPlayed:[] };
+    const fmt = (v) => `<span class="summary-delta ${v >= 0 ? 'pos' : 'neg'}">${v >= 0 ? '+' : ''}${v}</span>`;
+    const html = `
+      <h1>Day ${day} Complete</h1>
+      <p class="subtitle">${s.progress.dayType ? s.progress.dayType.icon + ' ' + s.progress.dayType.name : ''} · Streak: 🔥 ${s.progress.streak}</p>
+      <div class="summary-grid">
+        <div class="summary-item">
+          <div class="summary-label">${names.aaron} Joy</div>
+          <div class="summary-val">${Math.round(s.players.aaron.joy)}</div>
+          <div>${fmt(delta.aaron.joy)}</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">${names.jason} Joy</div>
+          <div class="summary-val">${Math.round(s.players.jason.joy)}</div>
+          <div>${fmt(delta.jason.joy)}</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">${names.aaron} Stress</div>
+          <div class="summary-val">${Math.round(s.players.aaron.stress)}</div>
+          <div>${fmt(delta.aaron.stress)}</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">${names.jason} Stress</div>
+          <div class="summary-val">${Math.round(s.players.jason.stress)}</div>
+          <div>${fmt(delta.jason.stress)}</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">${names.aaron} Career</div>
+          <div class="summary-val">${Math.round(s.players.aaron.career)}</div>
+          <div>${fmt(delta.aaron.career)}</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">${names.jason} Career</div>
+          <div class="summary-val">${Math.round(s.players.jason.career)}</div>
+          <div>${fmt(delta.jason.career)}</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">Bond</div>
+          <div class="summary-val">${Math.round(s.bond)}</div>
+          <div>${fmt(delta.bond)}</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">Gold</div>
+          <div class="summary-val">${s.gold}🪙</div>
+          <div>${fmt(delta.gold)}</div>
+        </div>
+      </div>
+      ${delta.cardsPlayed.length > 0 ? `
+        <div class="summary-events">
+          <b>Cards Played (${delta.cardsPlayed.length}):</b><br>
+          ${delta.cardsPlayed.map(c => `${c.art} ${U.tpl(c.name, names)}${c.isCrit ? ' 💥' : ''}`).join(' · ')}
+        </div>
+      ` : ''}
+      ${s._lastEvent ? `
+        <div class="summary-events">
+          <b>Event:</b> ${U.tpl(s._lastEvent.event.title, names)}<br>
+          <b>Choice:</b> ${U.tpl(s._lastEvent.choice.text, names)}
+        </div>
+      ` : ''}
+      <div class="btn-row">
+        <button class="primary-btn" id="btn-summary-continue">CONTINUE →</button>
+      </div>
+    `;
+    const modal = UI.showModal(html);
+    modal.querySelector('#btn-summary-continue').onclick = () => {
+      UI.closeModal(modal);
+      this.proceedAfterDay();
+    };
+  },
+
+  proceedAfterDay() {
+    const day = this.state.progress.day - 1;
+    if (CONFIG.RELIC_DAYS.includes(day) && day < 28) {
+      setTimeout(() => this.showRelicDraft(), 300);
+    } else if (CONFIG.SHOP_DAYS.includes(day) && day < 28) {
+      setTimeout(() => this.showShop(), 300);
+    } else if (day >= 28) {
+      setTimeout(() => this.showEndScreen('graduation'), 300);
+    } else {
+      setTimeout(() => this.startDay(), 300);
+    }
+  },
+
+  checkEndConditions() {
+    const s = this.state;
+    if (s.players.aaron.joy <= 0 || s.players.jason.joy <= 0) return 'burnout';
+    if (s.players.aaron.career >= 100 && s.players.jason.career >= 100) return 'perfect_career';
+    if (s.progress.day > 28) return 'graduation';
+    return null;
+  },
+
+  showShop() {
+    const s = this.state;
+    const names = s.meta?.names;
+    const rng = U.seededRng(s.rng + s.progress.day * 777);
+    const cardOffers = [];
+    const pool = Cards.ids().filter(id => !STARTING_DECK.includes(id));
+    const shuffledPool = U.shuffle(rng, pool);
+    for (let i = 0; i < 4 && i < shuffledPool.length; i++) cardOffers.push(shuffledPool[i]);
+    const relicPool = Relics.ids().filter(id => !s.relics.includes(id));
+    const shuffledRelics = U.shuffle(rng, relicPool);
+    const relicOffers = shuffledRelics.slice(0, 2);
+    const allDeck = [...s.deck.draw, ...s.deck.discard];
+    const html = `
+      <h1>🛒 Dorm Shop</h1>
+      <p class="subtitle">Gold: <b style="color:var(--gold-bright)">${s.gold}🪙</b></p>
+      <h2>Add Cards</h2>
+      <div class="shop-grid">
+        ${cardOffers.map(id => {
+          const c = Cards.get(id);
+          const price = Cards.price(id);
+          const afford = s.gold >= price;
+          return `<div class="shop-item ${afford ? '' : 'disabled'}" data-action="add" data-id="${id}">
+            <div class="shop-art">${c.art}</div>
+            <div class="shop-name">${U.tpl(c.name, names)}</div>
+            <div class="shop-desc">${U.tpl(c.desc, names)}</div>
+            <div class="shop-price">${price}🪙</div>
+          </div>`;
+        }).join('')}
+      </div>
+      ${relicOffers.length ? `
+        <h2>Buy Relics (15🪙)</h2>
+        <div class="shop-grid">
+          ${relicOffers.map(id => {
+            const r = Relics.get(id);
+            const afford = s.gold >= 15;
+            return `<div class="shop-item ${afford ? '' : 'disabled'}" data-action="relic" data-id="${id}">
+              <div class="shop-art">${r.art}</div>
+              <div class="shop-name">${r.name}</div>
+              <div class="shop-desc">${r.desc}</div>
+              <div class="shop-price">15🪙</div>
+            </div>`;
+          }).join('')}
+        </div>
+      ` : ''}
+      ${allDeck.length > 0 ? `
+        <h2>Manage Deck</h2>
+        <div class="shop-grid">
+          ${allDeck.map(inst => {
+            const c = Cards.get(inst.cardId);
+            const canRemove = s.gold >= 8;
+            const canUpgrade = s.gold >= 12 && inst.level < 3;
+            return `<div class="shop-item">
+              <div class="shop-art">${c.art}</div>
+              <div class="shop-name">${U.tpl(c.name, names)}</div>
+              <div class="shop-desc">Lv${inst.level} · Played ${inst.timesPlayed}×</div>
+              <div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:center">
+                ${canUpgrade ? `<button class="secondary-btn" data-action="upgrade" data-id="${inst.instanceId}" style="font-size:0.7rem;padding:4px 8px">⬆ 12🪙</button>` : ''}
+                ${canRemove ? `<button class="danger-btn" data-action="remove" data-id="${inst.instanceId}" style="font-size:0.7rem;padding:4px 8px">✕ 8🪙</button>` : ''}
+              </div>
+            </div>`;
+          }).join('')}
+        </div>
+      ` : ''}
+      <div class="btn-row" style="margin-top:18px">
+        <button class="primary-btn" id="btn-shop-close">LEAVE SHOP</button>
+      </div>
+    `;
+    const modal = UI.showModal(html);
+    modal.querySelectorAll('.shop-item [data-action]').forEach(el => {
+      el.onclick = (e) => {
+        e.stopPropagation();
+        const action = el.dataset.action;
+        const id = el.dataset.id;
+        if (action === 'add') this.store.dispatch({ type: 'SHOP_ADD_CARD', cardId: id });
+        else if (action === 'remove') this.store.dispatch({ type: 'SHOP_REMOVE_CARD', instanceId: id });
+        else if (action === 'relic') this.store.dispatch({ type: 'SHOP_BUY_RELIC', relicId: id });
+        else if (action === 'upgrade') this.store.dispatch({ type: 'SHOP_UPGRADE_CARD', instanceId: id });
+        audio.play('card');
+        Save.save(this.state);
+        UI.closeModal(modal);
+        this.showShop();
+      };
+    });
+    modal.querySelector('#btn-shop-close').onclick = () => {
+      UI.closeModal(modal);
+      setTimeout(() => this.startDay(), 300);
+    };
+  },
+
+  showRelicDraft() {
+    const s = this.state;
+    const rng = U.seededRng(s.rng + s.progress.day * 999);
+    const pool = Relics.ids().filter(id => !s.relics.includes(id));
+    const shuffled = U.shuffle(rng, pool);
+    const offers = shuffled.slice(0, 3);
+    const html = `
+      <h1>🏺 Week ${Math.ceil((s.progress.day-1)/7)} Complete</h1>
+      <p class="subtitle">Draft a Dorm Relic. These permanently alter your run.</p>
+      <div class="relic-choices">
+        ${offers.map(id => {
+          const r = Relics.get(id);
+          return `<div class="relic-choice" data-id="${id}">
+            <div class="relic-art">${r.art}</div>
+            <div class="relic-name">${r.name}</div>
+            <div class="relic-desc">${r.desc}</div>
+          </div>`;
+        }).join('')}
+      </div>
+      <div class="btn-row">
+        <button class="secondary-btn" id="btn-skip-relic">SKIP</button>
+      </div>
+    `;
+    const modal = UI.showModal(html);
+    modal.querySelectorAll('.relic-choice').forEach(el => {
+      el.onclick = () => {
+        this.store.dispatch({ type: 'DRAFT_RELIC', relicId: el.dataset.id });
+        audio.play('relic');
+        particles.emit(window.innerWidth/2, window.innerHeight/2, '#ffd76a', 50, 15);
+        const r = Relics.get(el.dataset.id);
+        UI.toast('Relic Acquired', r.name, r.art);
+        UI.closeModal(modal);
+        Save.save(this.state);
+        setTimeout(() => this.startDay(), 400);
+      };
+    });
+    modal.querySelector('#btn-skip-relic').onclick = () => {
+      UI.closeModal(modal);
+      setTimeout(() => this.startDay(), 300);
+    };
+  },
+
+  showEndScreen(type) {
+    const s = this.state;
+    const names = s.meta?.names || CONFIG.DEFAULT_NAMES;
+    const score = (s.players.aaron.joy + s.players.jason.joy + s.players.aaron.career + s.players.jason.career + s.bond) / 5;
+    let title, text, grade, gradeText;
+    if (type === 'burnout') {
+      title = '💀 Burnout';
+      text = `${names.aaron} or ${names.jason} cracked under the pressure. The stress was too much, the joy too low. Senior year ended in a hospital visit, not a graduation cap.`;
+      grade = 'F'; gradeText = 'Run Failed';
+    } else if (type === 'perfect_career') {
+      title = '🏆 Early Offer';
+      text = `Both ${names.aaron} and ${names.jason} crushed the career game so hard they got early offers! Graduation was a victory lap, not a panic attack. Legendary run.`;
+      grade = 'S+'; gradeText = 'Speedrun Victory';
+    } else {
+      if (score >= 85) { grade = 'S'; gradeText = 'Legendary Ending: Perfect Resonance'; title = '✨ Perfect Resonance'; text = `${names.aaron} and ${names.jason} balanced life, love, and gaming flawlessly. Dream jobs, unbreakable bond, zero regrets. This is the ending they write songs about.`; }
+      else if (score >= 72) { grade = 'A'; gradeText = 'Excellent Ending'; title = '🌟 The Good Ending'; text = `You navigated senior year with grace. Both got great jobs, stayed friends, and still game on weekends. A run to be proud of.`; }
+      else if (score >= 60) { grade = 'B'; gradeText = 'Solid Ending'; title = '⚖️ Realistic Balance'; text = `It wasn't perfect—missed sessions, stressful exams, a few arguments—but you made it. Decent jobs, intact friendship. A respectable run.`; }
+      else if (score >= 45) { grade = 'C'; gradeText = 'Mediocre Ending'; title = '😐 The Drift'; text = `You survived, but barely. The friendship frayed under the pressure of adulting. You still text on birthdays, but the daily gaming is a memory.`; }
+      else { grade = 'D'; gradeText = 'Bleak Ending'; title = '💔 Drifting Apart'; text = `The grind consumed you both. Gaming sessions stopped. Conversations dried up. You graduated, but went your separate ways without looking back.`; }
+    }
+    const topCardId = Object.entries(s.stats.cardUsage).sort((a,b) => b[1] - a[1])[0];
+    const topCard = topCardId ? Cards.get(topCardId[0]) : null;
+    const html = `
+      <h1>${title}</h1>
+      <p class="subtitle">${text}</p>
+      <div class="run-grade">
+        <div class="grade-letter">${grade}</div>
+        <div class="grade-text">${gradeText}</div>
+      </div>
+      <div class="end-stats">
+        <div class="end-stat"><div class="end-stat-val">${Math.round(s.players.aaron.joy)}</div><div class="end-stat-lbl">${names.aaron} Joy</div></div>
+        <div class="end-stat"><div class="end-stat-val">${Math.round(s.players.jason.joy)}</div><div class="end-stat-lbl">${names.jason} Joy</div></div>
+        <div class="end-stat"><div class="end-stat-val">${Math.round(s.players.aaron.career)}</div><div class="end-stat-lbl">${names.aaron} Career</div></div>
+        <div class="end-stat"><div class="end-stat-val">${Math.round(s.players.jason.career)}</div><div class="end-stat-lbl">${names.jason} Career</div></div>
+        <div class="end-stat"><div class="end-stat-val">${Math.round(s.bond)}</div><div class="end-stat-lbl">Friendship Bond</div></div>
+        <div class="end-stat"><div class="end-stat-val">${s.stats.totalCardsPlayed}</div><div class="end-stat-lbl">Cards Played</div></div>
+        <div class="end-stat"><div class="end-stat-val">${s.stats.crits}</div><div class="end-stat-lbl">Crits Landed</div></div>
+        <div class="end-stat"><div class="end-stat-val">${topCard ? topCard.art : '-'}</div><div class="end-stat-lbl">MVP Card${topCard ? ': ' + U.tpl(topCard.name, names) : ''}</div></div>
+      </div>
+      <h2>Achievements</h2>
+      <div class="achievements-list">
+        ${Achievements.all().map(([id, a]) => {
+          const unlocked = s.unlocks.achievements.includes(id);
+          return `<div class="achievement ${unlocked ? '' : 'locked'}">
+            <div class="ach-icon">${a.icon}</div>
+            <div><div class="ach-name">${a.name}</div><div class="ach-desc">${a.desc}</div></div>
+          </div>`;
+        }).join('')}
+      </div>
+      <div class="btn-row" style="margin-top:20px">
+        <button class="primary-btn" id="btn-new-run">NEW RUN</button>
+      </div>
+    `;
+    const modal = UI.showModal(html);
+    const meta = Save.loadMeta();
+    meta.totalRuns = (meta.totalRuns || 0) + 1;
+    meta.totalAchievements = (meta.totalAchievements || 0) + s.unlocks.achievements.length;
+    const gradeOrder = ['S+','S','A','B','C','D','F'];
+    if (!meta.bestGrade || gradeOrder.indexOf(grade) < gradeOrder.indexOf(meta.bestGrade)) meta.bestGrade = grade;
+    meta.history = meta.history || [];
+    meta.history.push({
+      date: Date.now(), grade, score,
+      names: { aaron: names.aaron, jason: names.jason },
+      difficulty: s.meta.difficulty, day: Math.min(s.progress.day, 28),
+      relics: s.relics.length, bond: Math.round(s.bond)
+    });
+    if (meta.history.length > 50) meta.history = meta.history.slice(-50);
+    Save.saveMeta(meta);
+    audio.play(type === 'burnout' ? 'damage' : 'win');
+    if (grade === 'S' || grade === 'S+') particles.emit(window.innerWidth/2, window.innerHeight/2, '#ffd76a', 80, 20);
+    Save.clear();
+    modal.querySelector('#btn-new-run').onclick = () => { UI.closeModal(modal); this.showStartScreen(null); };
+  },
+
+  checkAchievements() {
+    if (!this.state || !this.state.unlocks) return;
+    Achievements.all().forEach(([id, ach]) => {
+      if (this.state.unlocks.achievements.includes(id)) return;
+      if (this.achievementDebounce.has(id)) return;
+      try {
+        if (ach.check(this.state)) {
+          this.state.unlocks.achievements.push(id);
+          this.achievementDebounce.add(id);
+          audio.play('achieve');
+          UI.toast('Achievement Unlocked', ach.name, ach.icon, false, 'achieve');
+        }
+      } catch(e) {}
+    });
+  },
+
+  updateStatsDrawer() {
+    const s = this.state;
+    const el = document.getElementById('run-stats-content');
+    if (!s || !s.stats) {
+      el.innerHTML = '<p>Start a run to see statistics.</p>';
+      return;
+    }
+    const names = s.meta?.names || CONFIG.DEFAULT_NAMES;
+    const topCards = Object.entries(s.stats.cardUsage).sort((a,b) => b[1] - a[1]).slice(0, 5);
+    el.innerHTML = `
+      <h3>Run Info</h3>
+      <p>Characters: ${names.aaron} & ${names.jason}<br>
+      Day: ${s.progress.day} / 28<br>
+      Difficulty: ${CONFIG.DIFFICULTY[s.meta.difficulty].name}<br>
+      Seed: <code>${s.meta.seed}</code><br>
+      Gold: ${s.gold}🪙<br>
+      Day Type: ${s.progress.dayType?.name || '-'}</p>
+      <h3>Stats</h3>
+      <p>Total Cards Played: ${s.stats.totalCardsPlayed}<br>
+      Events Resolved: ${s.stats.eventsResolved}<br>
+      Boss Days Cleared: ${s.stats.bossDaysCleared}/4<br>
+      Critical Hits: ${s.stats.crits}<br>
+      Days Survived: ${s.stats.daysPlayed}<br>
+      Current Streak: ${s.progress.streak}<br>
+      Peak Joy: ${Math.round(s.stats.maxJoy)}<br>
+      Lowest Stress: ${Math.round(s.stats.minStress)}</p>
+      <h3>Deck</h3>
+      <p>Cards: ${getAllCards(s).length}<br>
+      Relics: ${s.relics.length}<br>
+      Cards Removed: ${s.deck.removed.length}</p>
+      <h3>Most Played Cards</h3>
+      <ul>
+        ${topCards.map(([id, count]) => {
+          const c = Cards.get(id);
+          return `<li>${c ? c.art : '?'} ${c ? U.tpl(c.name, names) : id} — ${count}×</li>`;
+        }).join('') || '<li>No cards played yet</li>'}
+      </ul>
+      <h3>Achievements (${s.unlocks.achievements.length}/${Achievements.all().length})</h3>
+      <ul>
+        ${Achievements.all().map(([id, a]) => {
+          const unlocked = s.unlocks.achievements.includes(id);
+          return `<li>${unlocked ? '✅' : '🔒'} ${a.name}</li>`;
+        }).join('')}
+      </ul>
+    `;
+  },
+
+  doUndo() {
+    if (!this.state || !this.state.progress || this.state.progress.phase !== 'evening') {
+      UI.toast('Cannot Undo', 'Only available during evening', '⚠');
+      return;
+    }
+    if (this.store.undo()) {
+      audio.play('turn');
+      UI.toast('Undo', 'Last action reverted', '↶');
+      this.renderHand();
+      Save.save(this.state);
+    } else
+      UI.toast('No Undo', 'Nothing to undo', '⚠');
+  }
+};
+
+// ======================== BOOT ========================
+document.addEventListener('DOMContentLoaded', () => {
+  App.init();
+  document.body.addEventListener('click', () => audio.resume(), { once: true });
+});
+</script>
+</body>
+</html>
