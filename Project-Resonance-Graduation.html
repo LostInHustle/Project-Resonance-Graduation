@@ -2585,12 +2585,11 @@ const App = {
     const modal = UI.showModal(html);
     modal.querySelector('#btn-summary-continue').onclick = () => {
       UI.closeModal(modal);
-      this.proceedAfterDay();
+      this.proceedAfterDay(day);
     };
   },
 
-  proceedAfterDay() {
-    const day = this.state.progress.day - 1;
+  proceedAfterDay(day) {
     if (CONFIG.RELIC_DAYS.includes(day) && day < 28) {
       setTimeout(() => this.showRelicDraft(), 300);
     } else if (CONFIG.SHOP_DAYS.includes(day) && day < 28) {
@@ -2605,8 +2604,11 @@ const App = {
   checkEndConditions() {
     const s = this.state;
     if (s.players.aaron.joy <= 0 || s.players.jason.joy <= 0) return 'burnout';
-    if (s.players.aaron.career >= 100 && s.players.jason.career >= 100) return 'perfect_career';
-    if (s.progress.day > 28) return 'graduation';
+    if (s.progress.day > 28) {
+      return (s.players.aaron.career >= 100 && s.players.jason.career >= 100)
+        ? 'perfect_career'
+        : 'graduation';
+    }
     return null;
   },
 
@@ -2666,8 +2668,8 @@ const App = {
               <div class="shop-name">${U.tpl(c.name, names)}</div>
               <div class="shop-desc">Lv${inst.level} · Played ${inst.timesPlayed}×</div>
               <div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:center">
-                ${canUpgrade ? `<button class="secondary-btn" data-action="upgrade" data-id="${inst.instanceId}" style="font-size:0.7rem;padding:4px 8px">⬆ 12🪙</button>` : ''}
-                ${canRemove ? `<button class="danger-btn" data-action="remove" data-id="${inst.instanceId}" style="font-size:0.7rem;padding:4px 8px">✕ 8🪙</button>` : ''}
+                <button class="secondary-btn" data-action="upgrade" data-id="${inst.instanceId}" style="font-size:0.7rem;padding:4px 8px" ${!canUpgrade ? 'disabled' : ''}>⬆ 12🪙</button>
+                <button class="danger-btn" data-action="remove" data-id="${inst.instanceId}" style="font-size:0.7rem;padding:4px 8px" ${!canRemove ? 'disabled' : ''}>✕ 8🪙</button>
               </div>
             </div>`;
           }).join('')}
@@ -2678,9 +2680,10 @@ const App = {
       </div>
     `;
     const modal = UI.showModal(html);
-    modal.querySelectorAll('.shop-item [data-action]').forEach(el => {
+    modal.querySelectorAll('.shop-item[data-action], .shop-item [data-action]').forEach(el => {
       el.onclick = (e) => {
         e.stopPropagation();
+        if (el.disabled || el.classList.contains('disabled')) return;
         const action = el.dataset.action;
         const id = el.dataset.id;
         if (action === 'add') this.store.dispatch({ type: 'SHOP_ADD_CARD', cardId: id });
